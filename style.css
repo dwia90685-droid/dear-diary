@@ -1,11 +1,15 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
 
 :root{
- --pink:#f4a8bd;
- --soft:#fff0f4;
- --green:#8eaf91;
- --dark:#496d50;
+ --green:#78977D;
+ --dark:#3E5F47;
+ --sage:#B5CDB3;
+ --pink:#F1C7D1;
+ --blush:#FCE8EC;
+ --cream:#FAF9F4;
+ --white:#FFFFFF;
+ --text:#48584B;
 }
 
 *{box-sizing:border-box}
@@ -13,8 +17,8 @@
 body{
  margin:0;
  font-family:Quicksand,sans-serif;
- color:#536653;
- background:linear-gradient(135deg,#fff0f4,#e8f3e7);
+ color:var(--text);
+ background:var(--cream);
 }
 
 header{
@@ -23,7 +27,8 @@ header{
  justify-content:space-between;
  align-items:center;
  padding:0 7%;
- background:#ffffffdf;
+ background:#FFFFFF;
+ border-bottom:1px solid #E5EDE3;
  position:sticky;
  top:0;
  z-index:10;
@@ -34,13 +39,13 @@ header{
  color:var(--dark);
 }
 
-.logo span{color:#e88da8}
+.logo span{color:#D995A9}
 
 .header-btn{
- border:0;
+ border:1px solid #D8E5D6;
  border-radius:30px;
- padding:11px 18px;
- background:var(--soft);
+ padding:11px 20px;
+ background:#EFF5ED;
  color:var(--dark);
  cursor:pointer;
 }
@@ -48,7 +53,7 @@ header{
 main{
  max-width:1050px;
  margin:auto;
- padding:30px 20px;
+ padding:35px 20px;
 }
 
 .slide{
@@ -60,32 +65,35 @@ main{
 .slide.active{display:block}
 
 @keyframes appear{
- from{opacity:0;transform:translateX(25px)}
- to{opacity:1;transform:translateX(0)}
+ from{opacity:0;transform:translateY(15px)}
+ to{opacity:1;transform:translateY(0)}
 }
 
 .hero{
  min-height:420px;
- border-radius:30px;
+ border-radius:28px;
  padding:50px;
- background:linear-gradient(120deg,#f6c1d0,#dcebd9);
+ background:linear-gradient(120deg,#DCE9D9,#F8E5E9);
  display:flex;
  justify-content:space-between;
  align-items:center;
  gap:20px;
 }
 
-h1,h2{font-family:'Playfair Display',serif}
-h1{font-size:43px;color:#54775a}
+h1,h2,h3{
+ font-family:'Playfair Display',serif;
+}
+
+h1{font-size:40px;color:var(--dark)}
 .hero p{line-height:1.9;max-width:480px}
-.flower{font-size:100px}
+.flower{font-size:90px}
 
 .btn{
  border:0;
  background:var(--green);
  color:white;
  padding:13px 22px;
- border-radius:25px;
+ border-radius:12px;
  font-weight:bold;
  cursor:pointer;
  margin:5px;
@@ -94,30 +102,41 @@ h1{font-size:43px;color:#54775a}
 .btn:hover{background:var(--dark)}
 
 .card{
- background:#ffffffdf;
- border:1px solid white;
+ background:var(--white);
+ border:1px solid #E5EDE3;
  padding:25px;
- border-radius:24px;
+ border-radius:18px;
  margin:18px 0;
- box-shadow:0 8px 25px #71977816;
+ box-shadow:0 5px 20px #496d500b;
 }
 
 .grid{
  display:grid;
  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
- gap:15px;
+ gap:16px;
 }
 
-.menu{cursor:pointer;transition:.3s}
-.menu:hover{transform:translateY(-5px)}
+.menu{
+ cursor:pointer;
+ transition:.3s;
+ border-top:4px solid var(--sage);
+}
+
+.menu:hover{
+ transform:translateY(-5px);
+ background:#F6FAF4;
+}
+
+.menu .emoji{font-size:34px}
 
 input,textarea{
  width:100%;
  padding:14px;
- border:1px solid #e7cbd4;
- border-radius:14px;
+ border:1px solid #DCE6D9;
+ border-radius:12px;
  margin:10px 0;
  font:inherit;
+ background:#FCFDFB;
 }
 
 textarea{min-height:140px}
@@ -131,18 +150,22 @@ textarea{min-height:140px}
 .mood{
  padding:15px;
  border:2px solid transparent;
- border-radius:15px;
- background:var(--soft);
- font-size:28px;
+ border-radius:14px;
+ background:var(--blush);
+ font-size:27px;
  cursor:pointer;
 }
 
-.mood.selected{border-color:var(--green)}
+.mood.selected{
+ border-color:var(--green);
+ background:#E5F0E2;
+}
 
 .entry{
- background:var(--soft);
- border-radius:15px;
- padding:15px;
+ background:#F3F7F0;
+ border-left:4px solid var(--green);
+ border-radius:12px;
+ padding:16px;
  margin:12px 0;
  overflow-wrap:anywhere;
 }
@@ -151,7 +174,7 @@ textarea{min-height:140px}
  text-align:center;
  font:24px 'Playfair Display';
  color:var(--dark);
- line-height:1.6;
+ line-height:1.7;
 }
 
 .navigation{
@@ -166,18 +189,27 @@ textarea{min-height:140px}
 .dot{
  width:9px;
  height:9px;
- background:#d7d7d7;
+ background:#D5DDD3;
  border-radius:50%;
  cursor:pointer;
 }
 
 .dot.active{
- background:#83a987;
- width:22px;
+ background:var(--green);
+ width:23px;
  border-radius:10px;
 }
 
-footer{text-align:center;padding:25px}
+.tasks input{
+ width:auto;
+ accent-color:var(--green);
+}
+
+footer{
+ text-align:center;
+ padding:25px;
+ color:#78977D;
+}
 
 @media(max-width:600px){
  .hero{
