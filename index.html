@@ -4,186 +4,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dear Diary - My Little Journal</title>
+    <title>Happy Diary 🌸</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <div class="app">
-
     <aside class="sidebar">
         <div class="brand">
-            <div class="brand-icon">🌷</div>
+            <div class="flower">🌸</div>
             <div>
-                <h2>Dear Diary</h2>
-                <small>my little journal</small>
+                <h2>Happy Diary</h2>
+                <small>Your happy little space</small>
             </div>
         </div>
 
-        <div class="menu-title">MENU</div>
-
         <nav>
-            <a href="#home" class="nav-link active" data-page="home">🏡 Beranda</a>
-            <a href="#write" class="nav-link" data-page="write">✍️ Tulis Diary</a>
-            <a href="#entries" class="nav-link" data-page="entries">📖 Diary Saya</a>
+            <button class="nav active" data-page="home">🏡 Beranda</button>
+            <button class="nav" data-page="diary">📖 Diary Saya</button>
+            <button class="nav" data-page="chat">💌 Teman Curhat</button>
+            <button class="nav" data-page="mood">🌈 Mood Tracker</button>
+            <button class="nav" data-page="relax">🍃 Relaksasi</button>
         </nav>
 
-        <div class="sidebar-note">
-            <span>♡</span>
-            <p>"Every day is a new page of your story."</p>
-        </div>
-
         <div class="sidebar-bottom">
-            Made with love ♡
+            <span>🌷 Take it one day at a time.</span>
         </div>
     </aside>
 
-    <main class="main-content">
-
+    <main class="main">
         <header class="topbar">
             <div>
-                <p class="date-label" id="today"></p>
-                <h2>Welcome to your diary! 🌸</h2>
+                <h3>Happy Diary <span>♡</span></h3>
+                <p>Ruang kecil untuk semua perasaanmu.</p>
             </div>
-            <div class="profile">D</div>
+            <div class="date" id="today"></div>
         </header>
 
-        <section class="page" id="home">
-
+        <!-- HOME -->
+        <section class="page active" id="home">
             <div class="welcome">
                 <div>
-                    <span class="tag">MY PERSONAL JOURNAL ✨</span>
-                    <h1>Your story,<br><span>your little world.</span></h1>
-                    <p>
-                        Tempat kecil untuk menyimpan cerita,
-                        perasaan, dan kenangan indah setiap harinya.
-                    </p>
-                    <a href="#write" class="primary-btn">+ Tulis Diary</a>
+                    <p class="eyebrow">WELCOME TO YOUR SAFE SPACE ✨</p>
+                    <h1>Halo, kamu! 🌷</h1>
+                    <p>Bagaimana perasaanmu hari ini? Ingat, semua perasaanmu berharga.</p>
+                    <button class="primary" onclick="showPage('mood')">Ceritakan perasaanmu ♡</button>
                 </div>
-
-                <div class="welcome-decoration">
-                    <div class="flower-circle">🌷</div>
-                    <span>♡</span>
-                    <small>Little moments<br>matter the most</small>
-                </div>
+                <div class="welcome-flower">🌸</div>
             </div>
 
-            <div class="section-title">
-                <div>
-                    <p>YOUR MEMORIES</p>
-                    <h2>My Diary Overview</h2>
-                </div>
-            </div>
-
+            <h2 class="section-title">Ruang pribadimu 💗</h2>
             <div class="stats">
-                <div class="stat-card pink">
-                    <div class="stat-icon">📖</div>
-                    <p>Total Diary</p>
-                    <h2 id="total-diary">0</h2>
+                <div class="stat-card">
+                    <span>📖</span>
+                    <h2 id="diaryCount">0</h2>
+                    <p>Catatan diary</p>
                 </div>
-
-                <div class="stat-card green">
-                    <div class="stat-icon">🌱</div>
-                    <p>Diary Bulan Ini</p>
-                    <h2 id="month-diary">0</h2>
+                <div class="stat-card">
+                    <span>🌈</span>
+                    <h2 id="moodCount">0</h2>
+                    <p>Mood tercatat</p>
                 </div>
-
-                <div class="stat-card purple">
-                    <div class="stat-icon">💌</div>
-                    <p>Diary Terbaru</p>
-                    <h2 id="latest-diary">-</h2>
+                <div class="stat-card">
+                    <span>💌</span>
+                    <h2>∞</h2>
+                    <p>Tempat bercerita</p>
                 </div>
             </div>
 
-            <div class="section-title recent-heading">
-                <div>
-                    <p>YOUR MEMORIES</p>
-                    <h2>Recent Diary</h2>
-                </div>
-                <a href="#entries">Lihat semua →</a>
+            <div class="quote">
+                <span>💖 DAILY REMINDER</span>
+                <h2 id="quoteText">Kamu tidak harus selalu kuat. Tidak apa-apa beristirahat.</h2>
+                <p>Pelan-pelan saja, setiap langkah kecil tetap berarti.</p>
             </div>
 
-            <div id="recent-list" class="diary-grid"></div>
-
+            <h2 class="section-title">Mulai dari sini 🌷</h2>
+            <div class="quick-links">
+                <button onclick="showPage('diary')">📖 Tulis Diary</button>
+                <button onclick="showPage('chat')">💌 Teman Curhat</button>
+                <button onclick="showPage('relax')">🍃 Tenangkan Pikiran</button>
+            </div>
         </section>
 
-        <section class="page" id="write">
-
-            <div class="section-title">
-                <div>
-                    <p>WRITE YOUR HEART</p>
-                    <h2>Write a New Diary ✍️</h2>
-                    <span>Tuangkan semua ceritamu di sini.</span>
-                </div>
+        <!-- DIARY -->
+        <section class="page" id="diary">
+            <div class="page-heading">
+                <h1>My Little Diary 📖</h1>
+                <p>Tuangkan cerita dan perasaanmu di sini.</p>
             </div>
 
-            <div class="form-card">
-                <form id="diary-form">
+            <div class="panel">
+                <h2>Tulis ceritamu ♡</h2>
+                <label>Judul cerita</label>
+                <input id="diaryTitle" placeholder="Hari ini aku ingin bercerita...">
 
-                    <input type="hidden" id="edit-id">
+                <label>Bagaimana perasaanmu?</label>
+                <select id="diaryMood">
+                    <option>😊 Bahagia</option>
+                    <option>🥰 Bersyukur</option>
+                    <option>😐 Biasa saja</option>
+                    <option>😔 Sedih</option>
+                    <option>😣 Cemas</option>
+                    <option>😡 Kesal</option>
+                </select>
 
-                    <label for="diary-title">Judul Diary</label>
-                    <input type="text" id="diary-title"
-                        placeholder="Contoh: A Beautiful Day..." required>
+                <label>Ceritakan semuanya...</label>
+                <textarea id="diaryContent" rows="6" placeholder="Tulis apa pun yang sedang kamu rasakan..."></textarea>
 
-                    <label for="diary-date">Tanggal</label>
-                    <input type="date" id="diary-date" required>
+                <button class="primary" onclick="saveDiary()">Simpan Diary 💗</button>
+            </div>
 
-                    <label for="diary-mood">Bagaimana perasaanmu hari ini?</label>
-                    <select id="diary-mood">
-                        <option value="🥰 Happy">🥰 Happy</option>
-                        <option value="😊 Good">😊 Good</option>
-                        <option value="😌 Calm">😌 Calm</option>
-                        <option value="😔 Sad">😔 Sad</option>
-                        <option value="😴 Tired">😴 Tired</option>
-                        <option value="✨ Excited">✨ Excited</option>
-                    </select>
+            <h2 class="section-title">Catatan ceritamu</h2>
+            <div id="diaryList" class="diary-list"></div>
+        </section>
 
-                    <label for="diary-content">Ceritakan harimu...</label>
-                    <textarea id="diary-content"
-                        placeholder="Dear Diary, hari ini aku ingin bercerita tentang..." required></textarea>
+        <!-- CHAT -->
+        <section class="page" id="chat">
+            <div class="page-heading">
+                <h1>Teman Curhat 💌</h1>
+                <p>Kamu boleh bercerita tanpa takut dihakimi.</p>
+            </div>
 
-                    <div class="form-buttons">
-                        <button type="reset" class="reset-btn">Reset</button>
-                        <button type="submit" class="primary-btn" id="save-btn">
-                            Simpan Diary ♡
-                        </button>
+            <div class="chat-box">
+                <div class="chat-header">
+                    <span class="chat-avatar">🌷</span>
+                    <div>
+                        <b>Happy Friend</b>
+                        <small>Teman cerita virtualmu</small>
                     </div>
+                    <span class="online">● Online</span>
+                </div>
 
-                </form>
-            </div>
-        </section>
+                <div class="messages" id="messages">
+                    <div class="message bot">
+                        Hai! 🌸 Aku Happy Friend. Kamu boleh cerita tentang harimu, sesuatu yang membuatmu senang, atau hal yang sedang mengganggu pikiranmu. Aku akan mencoba memberikan tanggapan yang mendukung. 
+                    </div>
+                </div>
 
-        <section class="page" id="entries">
-
-            <div class="section-title">
-                <div>
-                    <p>ALL YOUR STORIES</p>
-                    <h2>My Diary Collection 📚</h2>
-                    <span>Semua cerita yang pernah kamu simpan.</span>
+                <div class="chat-input">
+                    <input id="chatInput" placeholder="Tulis ceritamu di sini..." onkeydown="if(event.key==='Enter')sendMessage()">
+                    <button onclick="sendMessage()">Kirim ♡</button>
                 </div>
             </div>
-
-            <div class="search-box">
-                <span>🔍</span>
-                <input type="search" id="search"
-                    placeholder="Cari judul atau isi diary...">
-            </div>
-
-            <div id="all-list" class="diary-grid"></div>
-
+            <p class="notice">Happy Friend adalah teman virtual dengan respons otomatis, bukan psikolog atau layanan darurat. Hindari menuliskan data pribadi atau rahasia penting.</p>
         </section>
 
-        <footer>
-            <p>🌷 Dear Diary — Keep your memories close.</p>
-            <small>Made with love ♡</small>
-        </footer>
+        <!-- MOOD -->
+        <section class="page" id="mood">
+            <div class="page-heading">
+                <h1>Mood Tracker 🌈</h1>
+                <p>Kenali perasaanmu tanpa perlu menghakimi diri sendiri.</p>
+            </div>
 
+            <div class="panel">
+                <h2>Bagaimana perasaanmu sekarang?</h2>
+                <div class="mood-options">
+                    <button onclick="chooseMood('😊','Bahagia')">😊<small>Bahagia</small></button>
+                    <button onclick="chooseMood('🥰','Bersyukur')">🥰<small>Bersyukur</small></button>
+                    <button onclick="chooseMood('😐','Biasa saja')">😐<small>Biasa saja</small></button>
+                    <button onclick="chooseMood('😔','Sedih')">😔<small>Sedih</small></button>
+                    <button onclick="chooseMood('😣','Cemas')">😣<small>Cemas</small></button>
+                    <button onclick="chooseMood('😡','Kesal')">😡<small>Kesal</small></button>
+                </div>
+                <p id="moodFeedback" class="feedback">Pilih emoji yang menggambarkan perasaanmu.</p>
+            </div>
+
+            <h2 class="section-title">Riwayat mood</h2>
+            <div id="moodHistory" class="history"></div>
+        </section>
+
+        <!-- RELAX -->
+        <section class="page" id="relax">
+            <div class="page-heading">
+                <h1>Me Time 🍃</h1>
+                <p>Luangkan waktu sebentar untuk dirimu sendiri.</p>
+            </div>
+
+            <div class="relax-card">
+                <div class="relax-flower">🌼</div>
+                <h2>Latihan Pernapasan</h2>
+                <p>Tarik napas perlahan, lalu keluarkan dengan nyaman. Jangan dipaksakan.</p>
+                <div class="breath-circle" id="breathCircle">Siap?</div>
+                <h3 id="breathText">Kamu bisa mulai kapan saja.</h3>
+                <button class="primary" id="breathButton" onclick="startBreathing()">Mulai latihan</button>
+            </div>
+
+            <div class="quote">
+                <h2>🌷 Ingat ini...</h2>
+                <p>Kamu boleh beristirahat. Kamu tidak harus menyelesaikan semuanya hari ini.</p>
+            </div>
+        </section>
+
+        <footer>Made with 💗 for you · Happy Diary</footer>
     </main>
 </div>
-
-<div id="toast" class="toast"></div>
 
 <script src="script.js"></script>
 </body>
