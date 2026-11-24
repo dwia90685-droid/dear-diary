@@ -5,60 +5,73 @@ let selectedMood=null;
 const slides=document.querySelectorAll('.slide');
 const navButtons=document.querySelectorAll('.nav');
 
+const titles=[
+ 'Beranda',
+ 'Jurnal Pribadi',
+ 'Mengenali Emosi',
+ 'Refleksi Diri',
+ 'Ruang Pikiran',
+ 'Perkembangan Diri'
+];
+
 const questions=[
- 'Apa yang paling kamu rasakan hari ini?',
- 'Apa hal yang akhir-akhir ini memenuhi pikiranmu?',
- 'Apa yang kamu butuhkan dari dirimu sendiri?',
+ 'Apa hal yang akhir-akhir ini paling banyak memenuhi pikiranmu?',
+ 'Apa perasaan yang paling sering muncul belakangan ini?',
+ 'Apa yang sebenarnya kamu butuhkan saat ini?',
+ 'Apakah ada kejadian yang masih sulit kamu lupakan?',
  'Apa hal kecil yang membuatmu merasa dihargai?',
- 'Apa yang ingin kamu perbaiki secara perlahan?',
- 'Siapa orang yang membuatmu merasa aman?',
- 'Apa pencapaian kecil yang patut kamu syukuri?'
+ 'Bagaimana kamu biasanya menghadapi masalah?',
+ 'Apa yang ingin kamu sampaikan kepada dirimu sendiri?'
 ];
 
 let questionIndex=0;
-
-const affirmations=[
- 'Aku berhak mendapatkan waktu untuk beristirahat.',
- 'Perasaanku layak untuk didengarkan.',
- 'Aku tidak harus sempurna setiap hari.',
- 'Aku boleh berkembang dengan kecepatanku sendiri.',
- 'Aku layak mendapatkan dukungan dan kebaikan.',
- 'Satu langkah kecil tetap merupakan kemajuan.'
-];
 
 function getData(key){
  return JSON.parse(localStorage.getItem(key)||'[]');
 }
 
-function saveData(key,value){
+function putData(key,value){
  localStorage.setItem(key,JSON.stringify(value));
 }
 
 function safe(value){
  return String(value).replace(/[&<>"']/g,c=>({
- '&':'&amp;','<':'&lt;','>':'&gt;',
- '"':'&quot;',"'":'&#39;'
+  '&':'&amp;',
+  '<':'&lt;',
+  '>':'&gt;',
+  '"':'&quot;',
+  "'":'&#39;'
  }[c]));
 }
 
+// MASUK KE APLIKASI
+function enterApp(){
+ const opening=document.getElementById('opening');
+ opening.classList.add('hide');
+
+ setTimeout(()=>{
+  opening.style.display='none';
+  document.getElementById('app').classList.add('show');
+  go(0);
+ },850);
+}
+
+// NAVIGASI
 function go(n){
- current=Math.max(0,Math.min(6,n));
+ current=Math.max(0,Math.min(5,n));
 
- slides.forEach((slide,i)=>{
-  slide.classList.toggle('active',i===current);
+ slides.forEach((s,i)=>{
+  s.classList.toggle('active',i===current);
  });
 
- navButtons.forEach((button,i)=>{
-  button.classList.toggle('active',i===current);
+ navButtons.forEach((b,i)=>{
+  b.classList.toggle('active',i===current);
  });
 
- document.getElementById('pageTitle').textContent=[
- 'Dashboard','Personal Diary','Mood Tracker',
- 'Self Reflection','Mind Journal','Self Care','My Progress'
- ][current];
+ document.getElementById('pageTitle').textContent=titles[current];
 
  document.getElementById('slideNumber').textContent=
- String(current+1).padStart(2,'0')+' / 07';
+ String(current+1).padStart(2,'0')+' / 06';
 
  window.scrollTo({top:0,behavior:'smooth'});
  update();
@@ -68,93 +81,108 @@ function move(n){
  go(current+n);
 }
 
-document.getElementById('today').textContent=
+// TANGGAL
+document.getElementById('date').textContent=
  new Date().toLocaleDateString('id-ID',{
-  day:'numeric',month:'long',year:'numeric'
+  day:'numeric',
+  month:'long',
+  year:'numeric'
  });
 
+// SIMPAN JURNAL
 function saveDiary(){
  let title=document.getElementById('diaryTitle').value.trim();
  let text=document.getElementById('diaryText').value.trim();
- let feeling=document.getElementById('diaryFeeling').value;
+ let mood=document.getElementById('diaryMood').value;
+ let need=document.getElementById('diaryNeed').value.trim();
 
  if(!title||!text){
-  alert('Lengkapi judul dan ceritamu.');
+  alert('Silakan isi judul dan cerita jurnalmu.');
   return;
  }
 
  let list=getData('diaries');
 
  list.unshift({
-  title,text,feeling,
+  title,text,mood,need,
   date:new Date().toLocaleString('id-ID')
  });
 
- saveData('diaries',list);
+ putData('diaries',list);
 
  document.getElementById('diaryTitle').value='';
  document.getElementById('diaryText').value='';
+ document.getElementById('diaryNeed').value='';
 
  update();
- alert('Diary berhasil disimpan 🌿');
+ alert('Jurnal berhasil disimpan 🌷');
 }
 
-function quickMood(name,emoji){
+// EMOSI
+function selectMood(name,element){
  selectedMood=name;
- document.getElementById('quickResult').textContent=
- emoji+' Mood kamu: '+name+'.';
- saveMoodEntry(name,'');
- alert('Mood berhasil dicatat.');
-}
 
-function chooseMood(name,emoji,element){
- selectedMood=name;
- document.querySelectorAll('.mood-options button')
+ document.querySelectorAll('.mood')
  .forEach(b=>b.classList.remove('selected'));
+
  element.classList.add('selected');
 }
 
-function saveMoodEntry(name,note){
+function addMood(name,note){
  let list=getData('moods');
+
  list.unshift({
   name,note,
   date:new Date().toLocaleString('id-ID')
  });
- saveData('moods',list);
+
+ putData('moods',list);
  update();
 }
 
 function saveMood(){
  if(!selectedMood){
-  alert('Pilih suasana hati terlebih dahulu.');
+  alert('Pilih perasaanmu terlebih dahulu.');
   return;
  }
 
- let note=document.getElementById('moodNote').value.trim();
- saveMoodEntry(selectedMood,note);
+ let note=document.getElementById('moodReason').value.trim();
+
+ addMood(selectedMood,note);
 
  selectedMood=null;
- document.getElementById('moodNote').value='';
- document.querySelectorAll('.mood-options button')
+ document.getElementById('moodReason').value='';
+
+ document.querySelectorAll('.mood')
  .forEach(b=>b.classList.remove('selected'));
 
- alert('Mood berhasil disimpan 🌱');
+ alert('Catatan emosimu berhasil disimpan.');
 }
 
+function quickMood(name){
+ addMood(name,'Catatan singkat dari halaman beranda.');
+ document.getElementById('quickResult').textContent=
+ 'Catatan perasaan '+name+' berhasil disimpan.';
+}
+
+// REFLEKSI DIRI
 function nextQuestion(){
  questionIndex=(questionIndex+1)%questions.length;
+
  document.getElementById('question').textContent=
  questions[questionIndex];
 
- document.getElementById('qNumber').textContent=
- 'QUESTION '+String(questionIndex+1).padStart(2,'0');
+ document.getElementById('questionNumber').textContent=
+ 'PERTANYAAN '+String(questionIndex+1).padStart(2,'0');
+
+ document.getElementById('reflectionAnswer').value='';
 }
 
 function saveReflection(){
  let answer=document.getElementById('reflectionAnswer').value.trim();
 
  if(!answer){
-  alert('Tuliskan jawaban refleksimu terlebih dahulu.');
+  alert('Silakan isi jawaban refleksimu.');
   return;
  }
 
@@ -166,104 +194,106 @@ function saveReflection(){
   date:new Date().toLocaleString('id-ID')
  });
 
- saveData('reflections',list);
- document.getElementById('reflectionAnswer').value='';
+ putData('reflections',list);
 
+ document.getElementById('reflectionAnswer').value='';
  update();
- alert('Refleksi berhasil disimpan.');
+
+ alert('Refleksi berhasil disimpan 🌱');
 }
 
+// RUANG PIKIRAN
 function saveMind(){
  let text=document.getElementById('mindText').value.trim();
+ let control=document.getElementById('mindControl').value.trim();
 
  if(!text){
-  alert('Tuliskan pikiranmu terlebih dahulu.');
+  alert('Tuliskan isi pikiranmu terlebih dahulu.');
   return;
  }
 
  let list=getData('minds');
+
  list.unshift({
-  text,
+  text,control,
   date:new Date().toLocaleString('id-ID')
  });
 
- saveData('minds',list);
+ putData('minds',list);
+
  document.getElementById('mindText').value='';
+ document.getElementById('mindControl').value='';
 
  update();
  alert('Catatan berhasil disimpan.');
 }
 
-function newAffirmation(){
- let index=Math.floor(Math.random()*affirmations.length);
- document.getElementById('affirmation').textContent=
- affirmations[index];
-}
-
+// MENAMPILKAN DATA
 function update(){
  let diaries=getData('diaries');
  let moods=getData('moods');
  let reflections=getData('reflections');
  let minds=getData('minds');
 
- document.getElementById('dashDiary').textContent=diaries.length;
- document.getElementById('dashMood').textContent=moods.length;
- document.getElementById('dashReflection').textContent=reflections.length;
+ document.getElementById('totalDiary').textContent=diaries.length;
+ document.getElementById('totalMood').textContent=moods.length;
+ document.getElementById('totalReflection').textContent=reflections.length;
 
- document.getElementById('progressDiary').textContent=diaries.length;
- document.getElementById('progressMood').textContent=moods.length;
- document.getElementById('progressReflection').textContent=reflections.length;
- document.getElementById('progressMind').textContent=minds.length;
+ document.getElementById('growthDiary').textContent=diaries.length;
+ document.getElementById('growthMood').textContent=moods.length;
+ document.getElementById('growthReflection').textContent=reflections.length;
+ document.getElementById('growthMind').textContent=minds.length;
 
  document.getElementById('diaryList').innerHTML=
  diaries.map(d=>`
  <div class="entry">
- <small>${safe(d.date)}</small>
- <h3>${safe(d.title)}</h3>
- <p>${safe(d.text).replace(/\n/g,'<br>')}</p>
- <small>Mood: ${safe(d.feeling)}</small>
- </div>`).join('')||'Belum ada diary.';
+  <small>${safe(d.date)}</small>
+  <h3>${safe(d.title)}</h3>
+  <p>${safe(d.text)}</p>
+  <small>Perasaan: ${safe(d.mood)}</small>
+  <p>Kebutuhan: ${safe(d.need)}</p>
+ </div>
+ `).join('')||'Belum ada jurnal yang tersimpan.';
 
  document.getElementById('moodList').innerHTML=
  moods.map(m=>`
  <div class="entry">
- <b>${safe(m.name)}</b>
- <small>${safe(m.date)}</small>
- <p>${safe(m.note)}</p>
- </div>`).join('')||'Belum ada catatan mood.';
+  <b>${safe(m.name)}</b>
+  <small>${safe(m.date)}</small>
+  <p>${safe(m.note)}</p>
+ </div>
+ `).join('')||'Belum ada catatan emosi.';
 
  document.getElementById('reflectionList').innerHTML=
  reflections.map(r=>`
  <div class="entry">
- <small>${safe(r.date)}</small>
- <h3>${safe(r.question)}</h3>
- <p>${safe(r.answer)}</p>
- </div>`).join('')||'Belum ada refleksi.';
+  <small>${safe(r.date)}</small>
+  <h3>${safe(r.question)}</h3>
+  <p>${safe(r.answer)}</p>
+ </div>
+ `).join('')||'Belum ada refleksi diri.';
 
  document.getElementById('mindList').innerHTML=
  minds.map(m=>`
  <div class="entry">
- <small>${safe(m.date)}</small>
- <p>${safe(m.text)}</p>
- </div>`).join('')||'Belum ada catatan.';
-
- document.getElementById('recentDiary').innerHTML=
- diaries.length?
- `<div class="entry"><b>${safe(diaries[0].title)}</b>
- <p>${safe(diaries[0].date)}</p></div>`:
- 'Belum ada cerita hari ini.';
+  <small>${safe(m.date)}</small>
+  <p>${safe(m.text)}</p>
+  <p>Hal yang bisa dikendalikan: ${safe(m.control)}</p>
+ </div>
+ `).join('')||'Belum ada catatan pikiran.';
 
  document.getElementById('growthMessage').textContent=
- diaries.length+reflections.length+moods.length+
- ' catatan perjalanan dirimu telah tersimpan.';
+ diaries.length+reflections.length+moods.length+minds.length+
+ ' catatan telah kamu kumpulkan dalam perjalanan mengenali diri.';
 }
 
+// UNDUH DATA
 function exportData(){
  let content={
-  diaries:getData('diaries'),
-  moods:getData('moods'),
-  reflections:getData('reflections'),
-  minds:getData('minds')
+  jurnal:getData('diaries'),
+  emosi:getData('moods'),
+  refleksi:getData('reflections'),
+  pikiran:getData('minds')
  };
 
  let file=new Blob(
@@ -275,12 +305,13 @@ function exportData(){
  let link=document.createElement('a');
 
  link.href=url;
- link.download='berry-matcha-my-data.json';
+ link.download='catatan-berry-matcha.json';
  link.click();
 
  URL.revokeObjectURL(url);
 }
 
+// TOMBOL KEYBOARD
 document.addEventListener('keydown',e=>{
  if(e.key==='ArrowRight')move(1);
  if(e.key==='ArrowLeft')move(-1);
