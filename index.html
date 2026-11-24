@@ -2,202 +2,131 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Diary 🌸</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Berry Matcha Diary 🍓</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="app">
-    <aside class="sidebar">
-        <div class="brand">
-            <div class="flower">🌸</div>
-            <div>
-                <h2>Happy Diary</h2>
-                <small>Your happy little space</small>
-            </div>
-        </div>
+<header>
+ <div class="logo">✿ Berry<span>Matcha</span></div>
+ <button class="header-btn" onclick="go(0)">⌂ Home</button>
+</header>
 
-        <nav>
-            <button class="nav active" data-page="home">🏡 Beranda</button>
-            <button class="nav" data-page="diary">📖 Diary Saya</button>
-            <button class="nav" data-page="chat">💌 Teman Curhat</button>
-            <button class="nav" data-page="mood">🌈 Mood Tracker</button>
-            <button class="nav" data-page="relax">🍃 Relaksasi</button>
-        </nav>
+<main>
 
-        <div class="sidebar-bottom">
-            <span>🌷 Take it one day at a time.</span>
-        </div>
-    </aside>
+<section class="slide active">
+ <div class="hero">
+  <div>
+   <p>🍓 YOUR LITTLE SAFE SPACE</p>
+   <h1>Dear You,<br>Welcome Home.</h1>
+   <p>A little space to write, feel, heal, and grow.</p>
+   <button class="btn" onclick="go(1)">Start My Journey →</button>
+  </div>
+  <div class="flower">🌷🍓</div>
+ </div>
+</section>
 
-    <main class="main">
-        <header class="topbar">
-            <div>
-                <h3>Happy Diary <span>♡</span></h3>
-                <p>Ruang kecil untuk semua perasaanmu.</p>
-            </div>
-            <div class="date" id="today"></div>
-        </header>
+<section class="slide">
+ <h1>My Little World 🌿</h1>
+ <div class="grid">
+  <div class="card menu" onclick="go(2)">📖<h2>My Diary</h2><p>Tuliskan ceritamu.</p></div>
+  <div class="card menu" onclick="go(3)">🌈<h2>Mood Tracker</h2><p>Kenali perasaanmu.</p></div>
+  <div class="card menu" onclick="go(4)">🧸<h2>Talk to Myself</h2><p>Kenali dirimu.</p></div>
+  <div class="card menu" onclick="go(5)">☁️<h2>Overthinking Room</h2><p>Tuangkan pikiranmu.</p></div>
+  <div class="card menu" onclick="go(6)">🌻<h2>Self Care</h2><p>Waktu untuk dirimu.</p></div>
+  <div class="card menu" onclick="go(7)">🌱<h2>My Growth</h2><p>Lihat perkembanganmu.</p></div>
+ </div>
+</section>
 
-        <!-- HOME -->
-        <section class="page active" id="home">
-            <div class="welcome">
-                <div>
-                    <p class="eyebrow">WELCOME TO YOUR SAFE SPACE ✨</p>
-                    <h1>Halo, kamu! 🌷</h1>
-                    <p>Bagaimana perasaanmu hari ini? Ingat, semua perasaanmu berharga.</p>
-                    <button class="primary" onclick="showPage('mood')">Ceritakan perasaanmu ♡</button>
-                </div>
-                <div class="welcome-flower">🌸</div>
-            </div>
+<section class="slide">
+ <h1>📖 My Diary</h1>
+ <div class="card">
+  <input id="title" placeholder="Judul ceritamu...">
+  <textarea id="story" placeholder="Dear diary, hari ini..."></textarea>
+  <button class="btn" onclick="saveDiary()">Save Story 🍓</button>
+ </div>
+ <div class="card"><h2>My Memories</h2><div id="entries"></div></div>
+</section>
 
-            <h2 class="section-title">Ruang pribadimu 💗</h2>
-            <div class="stats">
-                <div class="stat-card">
-                    <span>📖</span>
-                    <h2 id="diaryCount">0</h2>
-                    <p>Catatan diary</p>
-                </div>
-                <div class="stat-card">
-                    <span>🌈</span>
-                    <h2 id="moodCount">0</h2>
-                    <p>Mood tercatat</p>
-                </div>
-                <div class="stat-card">
-                    <span>💌</span>
-                    <h2>∞</h2>
-                    <p>Tempat bercerita</p>
-                </div>
-            </div>
+<section class="slide">
+ <h1>🌈 Mood Tracker</h1>
+ <div class="card">
+  <p>Bagaimana perasaanmu hari ini?</p>
+  <div class="moods">
+   <button class="mood" onclick="pick('Bahagia',this)">🥰</button>
+   <button class="mood" onclick="pick('Tenang',this)">😌</button>
+   <button class="mood" onclick="pick('Biasa saja',this)">🙂</button>
+   <button class="mood" onclick="pick('Sedih',this)">🥺</button>
+   <button class="mood" onclick="pick('Lelah',this)">😴</button>
+   <button class="mood" onclick="pick('Cemas',this)">😟</button>
+  </div>
+  <p id="selectedMood">Pilih mood kamu.</p>
+  <button class="btn" onclick="saveMood()">Save Mood</button>
+ </div>
+ <div class="card"><h2>My Mood History</h2><div id="moods"></div></div>
+</section>
 
-            <div class="quote">
-                <span>💖 DAILY REMINDER</span>
-                <h2 id="quoteText">Kamu tidak harus selalu kuat. Tidak apa-apa beristirahat.</h2>
-                <p>Pelan-pelan saja, setiap langkah kecil tetap berarti.</p>
-            </div>
+<section class="slide">
+ <h1>🧸 Talk to Myself</h1>
+ <div class="card">
+  <p id="question">Apa hal yang paling kamu syukuri hari ini?</p>
+  <textarea id="reflection" placeholder="Ceritakan isi hatimu..."></textarea>
+  <button class="btn" onclick="reflect()">Reflect With Me</button>
+  <div id="reply"></div>
+  <button class="header-btn" onclick="nextQuestion()">Pertanyaan berikutnya ↗</button>
+ </div>
+</section>
 
-            <h2 class="section-title">Mulai dari sini 🌷</h2>
-            <div class="quick-links">
-                <button onclick="showPage('diary')">📖 Tulis Diary</button>
-                <button onclick="showPage('chat')">💌 Teman Curhat</button>
-                <button onclick="showPage('relax')">🍃 Tenangkan Pikiran</button>
-            </div>
-        </section>
+<section class="slide">
+ <h1>☁️ Overthinking Room</h1>
+ <div class="card">
+  <textarea id="thought" placeholder="Apa yang sedang memenuhi pikiranmu?"></textarea>
+  <button class="btn" onclick="saveThought()">Release My Thoughts</button>
+ </div>
+ <div class="card">
+  <h2>Gentle Reminder 🌷</h2>
+  <p>Kamu tidak harus menemukan jawaban untuk semuanya hari ini.</p>
+  <div id="thoughts"></div>
+ </div>
+</section>
 
-        <!-- DIARY -->
-        <section class="page" id="diary">
-            <div class="page-heading">
-                <h1>My Little Diary 📖</h1>
-                <p>Tuangkan cerita dan perasaanmu di sini.</p>
-            </div>
+<section class="slide">
+ <h1>🌻 Self Care Corner</h1>
+ <div class="card">
+  <h2>Little Things for Myself</h2>
+  <div class="tasks">
+   <p><label><input type="checkbox"> Minum air putih</label></p>
+   <p><label><input type="checkbox"> Istirahat sejenak</label></p>
+   <p><label><input type="checkbox"> Mendengarkan musik</label></p>
+   <p><label><input type="checkbox"> Merapikan kamar</label></p>
+   <p><label><input type="checkbox"> Berbicara dengan orang terpercaya</label></p>
+   <p><label><input type="checkbox"> Melakukan hal yang disukai</label></p>
+  </div>
+ </div>
+ <div class="card quote">"You deserve your own kindness too." 🌷</div>
+</section>
 
-            <div class="panel">
-                <h2>Tulis ceritamu ♡</h2>
-                <label>Judul cerita</label>
-                <input id="diaryTitle" placeholder="Hari ini aku ingin bercerita...">
+<section class="slide">
+ <h1>🌱 My Growth</h1>
+ <div class="grid">
+  <div class="card"><h2 id="countDiary">0</h2>My Stories 📖</div>
+  <div class="card"><h2 id="countMood">0</h2>Mood Records 🌈</div>
+  <div class="card"><h2 id="countThought">0</h2>Thoughts Released ☁️</div>
+ </div>
+ <div class="card quote">"Little by little, you are growing." 🍓</div>
+</section>
 
-                <label>Bagaimana perasaanmu?</label>
-                <select id="diaryMood">
-                    <option>😊 Bahagia</option>
-                    <option>🥰 Bersyukur</option>
-                    <option>😐 Biasa saja</option>
-                    <option>😔 Sedih</option>
-                    <option>😣 Cemas</option>
-                    <option>😡 Kesal</option>
-                </select>
-
-                <label>Ceritakan semuanya...</label>
-                <textarea id="diaryContent" rows="6" placeholder="Tulis apa pun yang sedang kamu rasakan..."></textarea>
-
-                <button class="primary" onclick="saveDiary()">Simpan Diary 💗</button>
-            </div>
-
-            <h2 class="section-title">Catatan ceritamu</h2>
-            <div id="diaryList" class="diary-list"></div>
-        </section>
-
-        <!-- CHAT -->
-        <section class="page" id="chat">
-            <div class="page-heading">
-                <h1>Teman Curhat 💌</h1>
-                <p>Kamu boleh bercerita tanpa takut dihakimi.</p>
-            </div>
-
-            <div class="chat-box">
-                <div class="chat-header">
-                    <span class="chat-avatar">🌷</span>
-                    <div>
-                        <b>Happy Friend</b>
-                        <small>Teman cerita virtualmu</small>
-                    </div>
-                    <span class="online">● Online</span>
-                </div>
-
-                <div class="messages" id="messages">
-                    <div class="message bot">
-                        Hai! 🌸 Aku Happy Friend. Kamu boleh cerita tentang harimu, sesuatu yang membuatmu senang, atau hal yang sedang mengganggu pikiranmu. Aku akan mencoba memberikan tanggapan yang mendukung. 
-                    </div>
-                </div>
-
-                <div class="chat-input">
-                    <input id="chatInput" placeholder="Tulis ceritamu di sini..." onkeydown="if(event.key==='Enter')sendMessage()">
-                    <button onclick="sendMessage()">Kirim ♡</button>
-                </div>
-            </div>
-            <p class="notice">Happy Friend adalah teman virtual dengan respons otomatis, bukan psikolog atau layanan darurat. Hindari menuliskan data pribadi atau rahasia penting.</p>
-        </section>
-
-        <!-- MOOD -->
-        <section class="page" id="mood">
-            <div class="page-heading">
-                <h1>Mood Tracker 🌈</h1>
-                <p>Kenali perasaanmu tanpa perlu menghakimi diri sendiri.</p>
-            </div>
-
-            <div class="panel">
-                <h2>Bagaimana perasaanmu sekarang?</h2>
-                <div class="mood-options">
-                    <button onclick="chooseMood('😊','Bahagia')">😊<small>Bahagia</small></button>
-                    <button onclick="chooseMood('🥰','Bersyukur')">🥰<small>Bersyukur</small></button>
-                    <button onclick="chooseMood('😐','Biasa saja')">😐<small>Biasa saja</small></button>
-                    <button onclick="chooseMood('😔','Sedih')">😔<small>Sedih</small></button>
-                    <button onclick="chooseMood('😣','Cemas')">😣<small>Cemas</small></button>
-                    <button onclick="chooseMood('😡','Kesal')">😡<small>Kesal</small></button>
-                </div>
-                <p id="moodFeedback" class="feedback">Pilih emoji yang menggambarkan perasaanmu.</p>
-            </div>
-
-            <h2 class="section-title">Riwayat mood</h2>
-            <div id="moodHistory" class="history"></div>
-        </section>
-
-        <!-- RELAX -->
-        <section class="page" id="relax">
-            <div class="page-heading">
-                <h1>Me Time 🍃</h1>
-                <p>Luangkan waktu sebentar untuk dirimu sendiri.</p>
-            </div>
-
-            <div class="relax-card">
-                <div class="relax-flower">🌼</div>
-                <h2>Latihan Pernapasan</h2>
-                <p>Tarik napas perlahan, lalu keluarkan dengan nyaman. Jangan dipaksakan.</p>
-                <div class="breath-circle" id="breathCircle">Siap?</div>
-                <h3 id="breathText">Kamu bisa mulai kapan saja.</h3>
-                <button class="primary" id="breathButton" onclick="startBreathing()">Mulai latihan</button>
-            </div>
-
-            <div class="quote">
-                <h2>🌷 Ingat ini...</h2>
-                <p>Kamu boleh beristirahat. Kamu tidak harus menyelesaikan semuanya hari ini.</p>
-            </div>
-        </section>
-
-        <footer>Made with 💗 for you · Happy Diary</footer>
-    </main>
+<div class="navigation">
+ <button class="btn" onclick="move(-1)">← Back</button>
+ <div class="dots" id="dots"></div>
+ <button class="btn" onclick="move(1)">Next →</button>
 </div>
+
+</main>
+
+<footer>🍓 Berry Matcha Diary · Made with love 🌿</footer>
 
 <script src="script.js"></script>
 </body>
