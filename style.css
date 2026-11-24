@@ -21,9 +21,120 @@ body{
  background:var(--cream);
 }
 
+/* OPENING ANIMATION */
+#opening{
+ position:fixed;
+ inset:0;
+ z-index:100;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ overflow:hidden;
+ background:linear-gradient(135deg,#E0EDDC,#FAE8EC,#F4F0E3);
+ transition:opacity .9s,visibility .9s;
+}
+
+#opening.hide{
+ opacity:0;
+ visibility:hidden;
+}
+
+.opening-content{
+ text-align:center;
+ max-width:480px;
+ padding:25px;
+ animation:openingAppear 1.4s ease;
+}
+
+@keyframes openingAppear{
+ from{opacity:0;transform:translateY(35px)}
+ to{opacity:1;transform:translateY(0)}
+}
+
+.opening-logo{
+ width:85px;
+ height:85px;
+ display:grid;
+ place-items:center;
+ margin:auto;
+ border-radius:50%;
+ background:white;
+ color:var(--green);
+ font-size:55px;
+ box-shadow:0 10px 30px #496d5020;
+ animation:logoFloat 3s infinite ease-in-out;
+}
+
+@keyframes logoFloat{
+ 50%{transform:translateY(-12px) rotate(8deg)}
+}
+
+.opening-small{
+ margin-top:28px;
+ letter-spacing:4px;
+ font-size:10px;
+ color:var(--dark);
+}
+
+.opening-content h1{
+ font:700 55px 'Playfair Display';
+ color:var(--dark);
+ margin:10px 0;
+}
+
+.opening-content h1 span{color:#D995A9}
+
+.opening-desc{
+ line-height:1.9;
+ font-size:13px;
+ max-width:360px;
+ margin:15px auto 25px;
+}
+
+.start-button{
+ border:0;
+ padding:15px 30px;
+ border-radius:30px;
+ background:var(--green);
+ color:white;
+ font:600 13px Quicksand;
+ cursor:pointer;
+ box-shadow:0 8px 20px #78977D40;
+ transition:.3s;
+}
+
+.start-button:hover{transform:translateY(-4px);background:var(--dark)}
+
+.start-button span{margin-left:10px}
+
+.opening-footer{
+ display:block;
+ margin-top:35px;
+ color:#819180;
+ font-size:11px;
+}
+
+.floating{
+ position:absolute;
+ font-size:40px;
+ animation:float 5s infinite ease-in-out;
+}
+
+.flower1{top:15%;left:15%}
+.flower2{bottom:18%;right:15%;animation-delay:1s}
+.flower3{top:20%;right:17%;animation-delay:2s}
+
+@keyframes float{
+ 50%{transform:translateY(-25px) rotate(15deg)}
+}
+
+/* APP */
+.app{display:none}
+.app.show{display:block;animation:openingAppear .8s}
+
 .sidebar{
  position:fixed;
- left:0;top:0;
+ top:0;left:0;
  width:255px;
  height:100vh;
  padding:28px 20px;
@@ -41,13 +152,13 @@ body{
 
 .brand span{color:#D995A9}
 
-.subbrand{
+.brand-desc{
  font-size:9px;
  letter-spacing:2px;
  color:#91A391;
 }
 
-.profile{
+.user-box{
  display:flex;
  align-items:center;
  gap:12px;
@@ -57,17 +168,17 @@ body{
  margin:25px 0;
 }
 
-.avatar{
+.user-icon{
  font-size:30px;
  background:var(--blush);
  padding:8px;
  border-radius:12px;
 }
 
-.profile b{font-size:12px}
-.profile small{display:block;font-size:10px;margin-top:5px}
+.user-box b{font-size:12px}
+.user-box small{display:block;font-size:10px;margin-top:5px}
 
-.nav-title{
+.nav-heading{
  font-size:10px;
  letter-spacing:1.5px;
  color:#9AA99A;
@@ -100,9 +211,8 @@ body{
  border-radius:13px;
  color:#82616A;
  font-size:12px;
+ line-height:1.7;
 }
-
-.sidebar-bottom small{font-size:10px}
 
 main{
  margin-left:255px;
@@ -130,20 +240,15 @@ main{
  font-weight:bold;
 }
 
-.date{
+#date{
  background:white;
- padding:12px 17px;
+ padding:12px;
  border-radius:12px;
  font-size:12px;
 }
 
-.slide{display:none;animation:fade .35s}
+.slide{display:none;animation:openingAppear .4s}
 .slide.active{display:block}
-
-@keyframes fade{
- from{opacity:0;transform:translateY(12px)}
- to{opacity:1;transform:translateY(0)}
-}
 
 .welcome{
  display:flex;
@@ -159,16 +264,30 @@ main{
 .welcome h1{
  font:700 38px 'Playfair Display';
  color:var(--dark);
- margin:15px 0;
 }
 
-.welcome p{
- max-width:480px;
- line-height:1.8;
- font-size:13px;
+.welcome p{max-width:480px;line-height:1.9;font-size:13px}
+.welcome-image{font-size:100px;animation:logoFloat 4s infinite}
+
+.tag{
+ font-size:10px;
+ letter-spacing:1.5px;
+ color:#829C83;
+ font-weight:bold;
 }
 
-.welcome-art{font-size:85px}
+.primary,.secondary{
+ padding:12px 19px;
+ border:0;
+ border-radius:10px;
+ cursor:pointer;
+ font:600 12px Quicksand;
+ margin:5px 3px;
+}
+
+.primary{background:var(--green);color:white}
+.primary:hover{background:var(--dark)}
+.secondary{background:var(--blush);color:#865B69}
 
 .stats{
  display:grid;
@@ -186,40 +305,13 @@ main{
 
 .stat span{font-size:25px}
 .stat small{display:block;color:#8B9B8C;margin-top:10px}
-.stat h2{font:700 27px 'Playfair Display';color:var(--dark);margin:8px 0 0}
-
-.content-grid{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:18px;
-}
+.stat h2{font:700 27px 'Playfair Display';color:var(--dark)}
 
 .panel{margin-bottom:18px}
-
-.panel h3{
- color:var(--dark);
- font:700 19px 'Playfair Display';
-}
-
-.panel p{
- font-size:13px;
- line-height:1.8;
-}
-
-.moods,.mood-options{
- display:flex;
- gap:12px;
- flex-wrap:wrap;
-}
-
-.moods button{
- font-size:25px;
- background:#FCEEF1;
- border:0;
- border-radius:12px;
- padding:10px;
- cursor:pointer;
-}
+.panel h2,.panel h3{color:var(--dark);font-family:'Playfair Display'}
+.panel p{font-size:13px;line-height:1.8}
+.soft-pink{background:#FCEEF1}
+.soft-green{background:#EFF5ED}
 
 .heading{margin:25px 0}
 .heading h1{
@@ -228,11 +320,7 @@ main{
  margin:12px 0;
 }
 
-.heading p,.muted{
- color:#89958A;
- font-size:13px;
- line-height:1.8;
-}
+.heading p{color:#89958A;font-size:13px;line-height:1.8}
 
 label{
  display:block;
@@ -241,7 +329,7 @@ label{
  margin:15px 0 7px;
 }
 
-input:not([type=checkbox]),textarea,select{
+input,textarea,select{
  display:block;
  width:100%;
  padding:14px;
@@ -255,39 +343,28 @@ input:not([type=checkbox]),textarea,select{
 
 textarea{min-height:140px;resize:vertical}
 
-.mood-options button{
+.mood-grid{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:12px;
+ margin:20px 0;
+}
+
+.mood{
  display:flex;
  flex-direction:column;
  align-items:center;
  gap:8px;
  padding:16px;
- min-width:80px;
  border:1px solid #E8D9DB;
  background:#FFF8F8;
  border-radius:14px;
  cursor:pointer;
- font-size:25px;
+ font-size:27px;
 }
 
-.mood-options button.selected{
- background:#EAF2E8;
- border:2px solid var(--green);
-}
-
-.mood-options small{font-size:11px;color:var(--dark)}
-
-.primary,.secondary{
- padding:12px 19px;
- border:0;
- border-radius:10px;
- cursor:pointer;
- font:600 12px Quicksand;
- margin:5px 3px;
-}
-
-.primary{background:var(--green);color:white}
-.primary:hover{background:var(--dark)}
-.secondary{background:var(--blush);color:#865B69}
+.mood small{font-size:11px;color:var(--dark)}
+.mood.selected{background:#EAF2E8;border:2px solid var(--green)}
 
 .entry{
  background:#F2F6F0;
@@ -299,31 +376,11 @@ textarea{min-height:140px;resize:vertical}
 }
 
 .entry small{color:#8A9B8A}
+.entry p{white-space:pre-wrap}
 
-.question-number{
- color:#B47E8D;
- font-size:11px;
- letter-spacing:2px;
-}
-
-.quote{
- background:#F8ECEF;
- text-align:center;
-}
-
-.affirmation{
- font:20px 'Playfair Display';
- color:var(--dark);
-}
-
-#careList label{
- padding:13px;
- background:#F5F8F3;
- border-radius:10px;
- margin:9px 0;
-}
-
-#careList input{accent-color:var(--green)}
+.reflection-panel{padding:35px}
+.reflection-panel h2{line-height:1.6}
+.reflection-buttons{display:flex;flex-wrap:wrap}
 
 .slide-nav{
  display:flex;
@@ -342,14 +399,13 @@ textarea{min-height:140px;resize:vertical}
  }
  .sidebar-bottom{display:none}
  main{margin-left:0;padding:20px}
- .content-grid{grid-template-columns:1fr}
  .welcome{padding:25px}
- .welcome-art{font-size:55px}
+ .welcome-image{font-size:60px}
 }
 
 @media(max-width:480px){
- .topbar{align-items:flex-start}
  .welcome{flex-direction:column}
  .welcome h1{font-size:30px}
  .heading h1{font-size:27px}
+ .mood-grid{grid-template-columns:repeat(2,1fr)}
 }
