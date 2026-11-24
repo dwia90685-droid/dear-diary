@@ -1,282 +1,152 @@
 
-// DATA PENYIMPANAN
-let diaries = JSON.parse(localStorage.getItem("happyDiaries") || "[]");
-let moods = JSON.parse(localStorage.getItem("happyMoods") || "[]");
+let current=0;
+const slides=document.querySelectorAll('.slide');
+const dots=document.getElementById('dots');
 
-const quotes = [
-    "Kamu tidak harus selalu kuat. Tidak apa-apa beristirahat. 💗",
-    "Langkah kecil tetap merupakan sebuah kemajuan. 🌷",
-    "Jangan terlalu keras kepada dirimu sendiri. 🌸",
-    "Kamu layak mendapatkan waktu untuk beristirahat. 🍃",
-    "Hari yang sulit bukan berarti hidupmu buruk. 💕"
-];
-
-// TANGGAL
-document.getElementById("today").textContent =
-    new Date().toLocaleDateString("id-ID", {
-        weekday: "long",
-        day: "numeric",
-        month: "long",
-        year: "numeric"
-    });
-
-document.getElementById("quoteText").textContent =
-    quotes[Math.floor(Math.random() * quotes.length)];
-
-// NAVIGASI
-function showPage(page) {
-    document.querySelectorAll(".page").forEach(item => {
-        item.classList.remove("active");
-    });
-
-    document.getElementById(page).classList.add("active");
-
-    document.querySelectorAll(".nav").forEach(item => {
-        item.classList.toggle("active", item.dataset.page === page);
-    });
-
-    if (page === "diary") renderDiaries();
-    if (page === "mood") renderMoods();
-
-    window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-document.querySelectorAll(".nav").forEach(button => {
-    button.addEventListener("click", () => {
-        showPage(button.dataset.page);
-    });
+slides.forEach((s,i)=>{
+ let d=document.createElement('div');
+ d.className='dot'+(i===0?' active':'');
+ d.onclick=()=>go(i);
+ dots.appendChild(d);
 });
 
-// FUNGSI PENYIMPANAN
-function saveData() {
-    localStorage.setItem("happyDiaries", JSON.stringify(diaries));
-    localStorage.setItem("happyMoods", JSON.stringify(moods));
+function go(n){
+ current=n;
+ slides.forEach((s,i)=>s.classList.toggle('active',i===n));
+ [...dots.children].forEach((d,i)=>d.classList.toggle('active',i===n));
+ window.scrollTo({top:0,behavior:'smooth'});
+ update();
 }
 
-// DIARY
-function saveDiary() {
-    const title = document.getElementById("diaryTitle").value.trim();
-    const mood = document.getElementById("diaryMood").value;
-    const content = document.getElementById("diaryContent").value.trim();
-
-    if (!title || !content) {
-        alert("Isi judul dan cerita diary terlebih dahulu ya! 🌸");
-        return;
-    }
-
-    diaries.unshift({
-        id: Date.now(),
-        title,
-        mood,
-        content,
-        date: new Date().toLocaleString("id-ID")
-    });
-
-    saveData();
-
-    document.getElementById("diaryTitle").value = "";
-    document.getElementById("diaryContent").value = "";
-
-    renderDiaries();
-    updateStats();
-
-    alert("Diary berhasil disimpan! 💗");
+function move(n){
+ go(Math.max(0,Math.min(slides.length-1,current+n)));
 }
 
-function renderDiaries() {
-    const list = document.getElementById("diaryList");
-
-    if (diaries.length === 0) {
-        list.innerHTML = "<p>Belum ada cerita. Yuk, tulis diary pertamamu! 🌷</p>";
-        return;
-    }
-
-    list.innerHTML = diaries.map(item => `
-        <div class="diary-item">
-            <h3>${escapeHTML(item.title)}</h3>
-            <small>${escapeHTML(item.date)} · ${escapeHTML(item.mood)}</small>
-            <p>${escapeHTML(item.content)}</p>
-            <button class="delete-btn" onclick="deleteDiary(${item.id})">
-                Hapus catatan
-            </button>
-        </div>
-    `).join("");
+function data(k){
+ return JSON.parse(localStorage.getItem(k)||'[]');
 }
 
-function deleteDiary(id) {
-    if (!confirm("Yakin ingin menghapus catatan ini?")) return;
-
-    diaries = diaries.filter(item => item.id !== id);
-    saveData();
-    renderDiaries();
-    updateStats();
+function put(k,v){
+ localStorage.setItem(k,JSON.stringify(v));
 }
 
-// MOOD TRACKER
-function chooseMood(emoji, name) {
-    moods.unshift({
-        id: Date.now(),
-        emoji,
-        name,
-        date: new Date().toLocaleString("id-ID")
-    });
-
-    saveData();
-    renderMoods();
-    updateStats();
-
-    document.getElementById("moodFeedback").textContent =
-        `Kamu memilih ${emoji} ${name}. Terima kasih sudah mengenali perasaanmu hari ini. 💗`;
+function safe(s){
+ return String(s).replace(/[&<>"']/g,c=>({
+ '&':'&amp;','<':'&lt;','>':'&gt;',
+ '"':'&quot;',"'":'&#39;'
+ }[c]));
 }
 
-function renderMoods() {
-    const history = document.getElementById("moodHistory");
+function saveDiary(){
+ let t=document.getElementById('title').value.trim();
+ let s=document.getElementById('story').value.trim();
 
-    if (moods.length === 0) {
-        history.innerHTML = "<p>Belum ada mood yang dicatat.</p>";
-        return;
-    }
+ if(!t||!s)return alert('Isi ceritamu dulu 🍓');
 
-    history.innerHTML = moods.map(item => `
-        <div class="history-item">
-            <p>${item.emoji} ${escapeHTML(item.name)}</p>
-            <small>${escapeHTML(item.date)}</small>
-        </div>
-    `).join("");
+ let a=data('diary');
+ a.unshift({t,s,date:new Date().toLocaleDateString('id-ID')});
+ put('diary',a);
+
+ document.getElementById('title').value='';
+ document.getElementById('story').value='';
+ update();
+ alert('Diary tersimpan 🌷');
 }
 
-// DASHBOARD
-function updateStats() {
-    document.getElementById("diaryCount").textContent = diaries.length;
-    document.getElementById("moodCount").textContent = moods.length;
+function pick(m,e){
+ window.mood=m;
+ document.querySelectorAll('.mood').forEach(x=>x.classList.remove('selected'));
+ e.classList.add('selected');
+ document.getElementById('selectedMood').textContent='Mood: '+m;
 }
 
-function escapeHTML(value) {
-    return String(value).replace(/[&<>"']/g, char => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#039;"
-    })[char]);
+function saveMood(){
+ if(!window.mood)return alert('Pilih mood dulu!');
+
+ let a=data('mood');
+ a.unshift({
+  m:window.mood,
+  date:new Date().toLocaleDateString('id-ID')
+ });
+ put('mood',a);
+
+ window.mood=null;
+ document.querySelectorAll('.mood').forEach(x=>x.classList.remove('selected'));
+ document.getElementById('selectedMood').textContent='Mood berhasil disimpan!';
+ update();
 }
 
-// TEMAN CURHAT OTOMATIS
-function sendMessage() {
-    const input = document.getElementById("chatInput");
-    const text = input.value.trim();
+const questions=[
+ 'Apa hal yang paling kamu syukuri hari ini?',
+ 'Apa yang sedang kamu butuhkan sekarang?',
+ 'Hal apa yang ingin kamu lepaskan?',
+ 'Apa hal kecil yang membuatmu bahagia?',
+ 'Apa yang ingin kamu katakan kepada dirimu sendiri?'
+];
 
-    if (!text) return;
+let qi=0;
 
-    addMessage(text, "user");
-    input.value = "";
-
-    setTimeout(() => {
-        addMessage(getReply(text), "bot");
-    }, 500);
+function nextQuestion(){
+ qi=(qi+1)%questions.length;
+ document.getElementById('question').textContent=questions[qi];
+ document.getElementById('reflection').value='';
+ document.getElementById('reply').innerHTML='';
 }
 
-function addMessage(text, type) {
-    const messages = document.getElementById("messages");
-    const message = document.createElement("div");
+function reflect(){
+ let v=document.getElementById('reflection').value.trim();
+ if(!v)return alert('Tuliskan sedikit isi pikiranmu 🌷');
 
-    message.className = `message ${type}`;
-    message.textContent = text;
-
-    messages.appendChild(message);
-    messages.scrollTop = messages.scrollHeight;
+ document.getElementById('reply').innerHTML=`
+ <div class="entry">
+ <h3>🌷 A Gentle Reminder</h3>
+ <p>Terima kasih sudah memberi ruang untuk perasaanmu.
+ Tidak perlu menghakimi diri sendiri. Cobalah pikirkan
+ satu hal kecil yang bisa membantumu saat ini.</p>
+ </div>`;
 }
 
-function getReply(text) {
-    const message = text.toLowerCase();
+function saveThought(){
+ let v=document.getElementById('thought').value.trim();
+ if(!v)return alert('Tuliskan pikiranmu dahulu');
 
-    if (
-        /bunuh diri|ingin mati|mengakhiri hidup|menyakiti diri|melukai diri|tidak ingin hidup/.test(message)
-    ) {
-        return "Aku ikut prihatin kamu sedang menghadapi hal seberat ini. Kamu tidak perlu menghadapinya sendirian. Tolong segera ceritakan keadaanmu kepada orang dewasa yang kamu percaya, seperti orang tua, guru BK, atau anggota keluarga. Jika kamu merasa tidak aman sekarang, segera minta bantuan langsung dari orang di dekatmu atau layanan darurat setempat. 💗";
-    }
+ let a=data('thought');
+ a.unshift(v);
+ put('thought',a);
 
-    if (/sedih|nangis|kecewa|kehilangan|sendiri/.test(message)) {
-        return "Terima kasih sudah mau bercerita. Sedih dan kecewa adalah perasaan yang boleh kamu rasakan. Kamu tidak harus memaksakan diri untuk baik-baik saja. Cobalah cerita kepada seseorang yang kamu percaya juga ya. 🌷";
-    }
-
-    if (/cemas|takut|khawatir|panik|overthinking/.test(message)) {
-        return "Sepertinya pikiranmu sedang terasa penuh. Yuk, berhenti sebentar dan ambil napas dengan nyaman. Coba fokus pada satu hal kecil yang bisa kamu lakukan sekarang. Kamu tidak harus menyelesaikan semuanya sekaligus. 🍃";
-    }
-
-    if (/marah|kesal|emosi|jengkel/.test(message)) {
-        return "Tidak apa-apa merasa marah. Beri dirimu waktu untuk menenangkan pikiran sebelum mengambil keputusan. Kamu bisa menuliskan apa yang membuatmu kesal agar lebih mudah memahaminya. 💗";
-    }
-
-    if (/capek|lelah|bosan|burnout/.test(message)) {
-        return "Kedengarannya kamu sedang membutuhkan waktu untuk beristirahat. Tidak apa-apa mengambil jeda dan mengerjakan sesuatu secara perlahan. Istirahat juga bagian dari proses. 🌼";
-    }
-
-    if (/senang|bahagia|berhasil|berhasil|gembira/.test(message)) {
-        return "Wah, senang mendengarnya! 🥰 Jangan lupa menghargai hal-hal baik yang terjadi hari ini. Kamu boleh bangga dengan pencapaianmu, sekecil apa pun itu!";
-    }
-
-    if (/terima kasih|makasih/.test(message)) {
-        return "Sama-sama! 💗 Terima kasih juga sudah mempercayakan ceritamu di Happy Diary. Semoga harimu terasa lebih ringan.";
-    }
-
-    return "Terima kasih sudah berbagi cerita denganku. 🌸 Perasaanmu layak didengarkan. Coba ceritakan lebih lanjut apa yang paling mengganggu pikiranmu, atau pikirkan satu hal kecil yang bisa membuat keadaan sedikit lebih nyaman.";
+ document.getElementById('thought').value='';
+ update();
 }
 
-// LATIHAN PERNAPASAN
-let breathingTimer = null;
-let breathingRunning = false;
+function update(){
+ let a=data('diary');
+ let m=data('mood');
+ let t=data('thought');
 
-function startBreathing() {
-    const circle = document.getElementById("breathCircle");
-    const text = document.getElementById("breathText");
-    const button = document.getElementById("breathButton");
+ document.getElementById('entries').innerHTML=
+ a.map(x=>`
+ <div class="entry">
+ <small>${safe(x.date)}</small>
+ <h3>${safe(x.t)}</h3>
+ <p>${safe(x.s).replace(/\n/g,'<br>')}</p>
+ </div>`).join('')||'Belum ada cerita 🍓';
 
-    if (breathingRunning) {
-        clearInterval(breathingTimer);
-        breathingRunning = false;
-        circle.classList.remove("expand");
-        circle.textContent = "Siap?";
-        text.textContent = "Latihan dihentikan. Kamu bisa beristirahat.";
-        button.textContent = "Mulai lagi";
-        return;
-    }
+ document.getElementById('moods').innerHTML=
+ m.map(x=>`
+ <div class="entry">${safe(x.m)} · ${safe(x.date)}</div>
+ `).join('')||'Belum ada mood 🌱';
 
-    breathingRunning = true;
-    button.textContent = "Hentikan";
+ document.getElementById('thoughts').innerHTML=
+ t.map(x=>`<div class="entry">${safe(x)}</div>`).join('');
 
-    let step = 0;
-    const phases = [
-        { label: "Tarik napas", duration: 4, expand: true },
-        { label: "Keluarkan napas", duration: 6, expand: false }
-    ];
-
-    function nextPhase() {
-        if (!breathingRunning) return;
-
-        const phase = phases[step % 2];
-        let seconds = phase.duration;
-
-        circle.classList.toggle("expand", phase.expand);
-        circle.textContent = seconds;
-        text.textContent = phase.label;
-
-        breathingTimer = setInterval(() => {
-            seconds--;
-            circle.textContent = seconds;
-
-            if (seconds <= 0) {
-                clearInterval(breathingTimer);
-                step++;
-                nextPhase();
-            }
-        }, 1000);
-    }
-
-    nextPhase();
+ document.getElementById('countDiary').textContent=a.length;
+ document.getElementById('countMood').textContent=m.length;
+ document.getElementById('countThought').textContent=t.length;
 }
 
-// AWAL HALAMAN
-renderDiaries();
-renderMoods();
-updateStats();
+document.addEventListener('keydown',e=>{
+ if(e.key==='ArrowRight')move(1);
+ if(e.key==='ArrowLeft')move(-1);
+});
+
+update();
