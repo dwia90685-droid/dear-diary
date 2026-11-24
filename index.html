@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dear Diary - My Little Journal</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">🌷</div>
+            <div>
+                <h2>Dear Diary</h2>
+                <small>my little journal</small>
+            </div>
+        </div>
+
+        <div class="menu-title">MENU</div>
+
+        <nav>
+            <a href="#home" class="nav-link active" data-page="home">🏡 Beranda</a>
+            <a href="#write" class="nav-link" data-page="write">✍️ Tulis Diary</a>
+            <a href="#entries" class="nav-link" data-page="entries">📖 Diary Saya</a>
+        </nav>
+
+        <div class="sidebar-note">
+            <span>♡</span>
+            <p>"Every day is a new page of your story."</p>
+        </div>
+
+        <div class="sidebar-bottom">
+            Made with love ♡
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <p class="date-label" id="today"></p>
+                <h2>Welcome to your diary! 🌸</h2>
+            </div>
+            <div class="profile">D</div>
+        </header>
+
+        <section class="page" id="home">
+
+            <div class="welcome">
+                <div>
+                    <span class="tag">MY PERSONAL JOURNAL ✨</span>
+                    <h1>Your story,<br><span>your little world.</span></h1>
+                    <p>
+                        Tempat kecil untuk menyimpan cerita,
+                        perasaan, dan kenangan indah setiap harinya.
+                    </p>
+                    <a href="#write" class="primary-btn">+ Tulis Diary</a>
+                </div>
+
+                <div class="welcome-decoration">
+                    <div class="flower-circle">🌷</div>
+                    <span>♡</span>
+                    <small>Little moments<br>matter the most</small>
+                </div>
+            </div>
+
+            <div class="section-title">
+                <div>
+                    <p>YOUR MEMORIES</p>
+                    <h2>My Diary Overview</h2>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-card pink">
+                    <div class="stat-icon">📖</div>
+                    <p>Total Diary</p>
+                    <h2 id="total-diary">0</h2>
+                </div>
+
+                <div class="stat-card green">
+                    <div class="stat-icon">🌱</div>
+                    <p>Diary Bulan Ini</p>
+                    <h2 id="month-diary">0</h2>
+                </div>
+
+                <div class="stat-card purple">
+                    <div class="stat-icon">💌</div>
+                    <p>Diary Terbaru</p>
+                    <h2 id="latest-diary">-</h2>
+                </div>
+            </div>
+
+            <div class="section-title recent-heading">
+                <div>
+                    <p>YOUR MEMORIES</p>
+                    <h2>Recent Diary</h2>
+                </div>
+                <a href="#entries">Lihat semua →</a>
+            </div>
+
+            <div id="recent-list" class="diary-grid"></div>
+
+        </section>
+
+        <section class="page" id="write">
+
+            <div class="section-title">
+                <div>
+                    <p>WRITE YOUR HEART</p>
+                    <h2>Write a New Diary ✍️</h2>
+                    <span>Tuangkan semua ceritamu di sini.</span>
+                </div>
+            </div>
+
+            <div class="form-card">
+                <form id="diary-form">
+
+                    <input type="hidden" id="edit-id">
+
+                    <label for="diary-title">Judul Diary</label>
+                    <input type="text" id="diary-title"
+                        placeholder="Contoh: A Beautiful Day..." required>
+
+                    <label for="diary-date">Tanggal</label>
+                    <input type="date" id="diary-date" required>
+
+                    <label for="diary-mood">Bagaimana perasaanmu hari ini?</label>
+                    <select id="diary-mood">
+                        <option value="🥰 Happy">🥰 Happy</option>
+                        <option value="😊 Good">😊 Good</option>
+                        <option value="😌 Calm">😌 Calm</option>
+                        <option value="😔 Sad">😔 Sad</option>
+                        <option value="😴 Tired">😴 Tired</option>
+                        <option value="✨ Excited">✨ Excited</option>
+                    </select>
+
+                    <label for="diary-content">Ceritakan harimu...</label>
+                    <textarea id="diary-content"
+                        placeholder="Dear Diary, hari ini aku ingin bercerita tentang..." required></textarea>
+
+                    <div class="form-buttons">
+                        <button type="reset" class="reset-btn">Reset</button>
+                        <button type="submit" class="primary-btn" id="save-btn">
+                            Simpan Diary ♡
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </section>
+
+        <section class="page" id="entries">
+
+            <div class="section-title">
+                <div>
+                    <p>ALL YOUR STORIES</p>
+                    <h2>My Diary Collection 📚</h2>
+                    <span>Semua cerita yang pernah kamu simpan.</span>
+                </div>
+            </div>
+
+            <div class="search-box">
+                <span>🔍</span>
+                <input type="search" id="search"
+                    placeholder="Cari judul atau isi diary...">
+            </div>
+
+            <div id="all-list" class="diary-grid"></div>
+
+        </section>
+
+        <footer>
+            <p>🌷 Dear Diary — Keep your memories close.</p>
+            <small>Made with love ♡</small>
+        </footer>
+
+    </main>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
