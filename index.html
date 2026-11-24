@@ -2,402 +2,1465 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Berry Matcha — My Little Space</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Berry Matcha 🌷</title>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --pink:#e9a0b2;
+  --pink-light:#fff0f3;
+  --green:#829b78;
+  --green-dark:#536e4c;
+  --green-light:#edf3e8;
+  --cream:#fffaf6;
+  --text:#615653;
+  --muted:#a89b95;
+  --white:#fff;
+}
+
+* {box-sizing:border-box;margin:0;padding:0}
+
+body {
+  background:var(--cream);
+  color:var(--text);
+  font-family:"DM Sans",sans-serif;
+}
+
+button,input,textarea {font:inherit}
+button {cursor:pointer;border:0}
+
+/* OPENING */
+
+#opening {
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 15% 20%,#f8dce4,transparent 30%),
+    radial-gradient(circle at 85% 80%,#dcebd5,transparent 30%),
+    var(--cream);
+  transition:.7s;
+}
+
+#opening.hide {
+  opacity:0;
+  visibility:hidden;
+}
+
+.open-content {
+  position:relative;
+  z-index:2;
+  animation:appear 1s ease;
+}
+
+.logo-flower {
+  background:white;
+  width:105px;
+  height:105px;
+  display:grid;
+  place-items:center;
+  border-radius:32px;
+  font-size:53px;
+  margin:0 auto 25px;
+  box-shadow:0 12px 35px #e5a8b644;
+  transform:rotate(-8deg);
+}
+
+.open-content h1 {
+  font-family:"Playfair Display",serif;
+  font-size:65px;
+  color:var(--green-dark);
+}
+
+.open-content h1 span {color:var(--pink)}
+
+.open-content p {
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.9;
+  margin:15px 0 25px;
+}
+
+.open-small {
+  color:var(--pink)!important;
+  font-size:10px!important;
+  letter-spacing:3px;
+  font-weight:bold;
+}
+
+.enter {
+  padding:15px 27px;
+  border-radius:14px;
+  background:var(--pink);
+  color:white;
+  font-weight:bold;
+  box-shadow:0 8px 20px #e9a0b244;
+  transition:.2s;
+}
+
+.enter:hover {transform:translateY(-4px)}
+
+.decoration {
+  position:absolute;
+  font-size:50px;
+  animation:float 4s ease-in-out infinite;
+}
+
+.d1 {top:12%;left:13%}
+.d2 {top:17%;right:15%;animation-delay:1s}
+.d3 {bottom:12%;left:17%;animation-delay:2s}
+.d4 {bottom:15%;right:14%;animation-delay:.5s}
+
+@keyframes float {
+  50% {transform:translateY(-17px) rotate(12deg)}
+}
+
+@keyframes appear {
+  from {opacity:0;transform:translateY(20px)}
+  to {opacity:1;transform:translateY(0)}
+}
+
+/* APP */
+
+#app {display:none;min-height:100vh}
+#app.show {display:flex}
+
+.sidebar {
+  width:245px;
+  flex-shrink:0;
+  position:fixed;
+  top:0;
+  bottom:0;
+  left:0;
+  padding:30px 19px;
+  background:var(--pink-light);
+  border-right:1px solid #f4e0e5;
+  display:flex;
+  flex-direction:column;
+  z-index:10;
+}
+
+.brand {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  margin-bottom:48px;
+}
+
+.brand-icon {
+  width:46px;
+  height:46px;
+  background:white;
+  display:grid;
+  place-items:center;
+  border-radius:15px;
+  font-size:25px;
+}
+
+.brand h2 {
+  font-family:"Playfair Display",serif;
+  color:var(--green-dark);
+  font-size:19px;
+}
+
+.brand small {
+  color:#b38e98;
+  font-size:10px;
+}
+
+.side-title {
+  font-size:10px;
+  letter-spacing:2px;
+  color:#c09ba3;
+  margin:0 0 14px 10px;
+  font-weight:bold;
+}
+
+.menu {
+  display:grid;
+  gap:8px;
+}
+
+.menu button {
+  background:transparent;
+  text-align:left;
+  padding:13px;
+  border-radius:12px;
+  color:#8e817d;
+  font-size:12px;
+  font-weight:600;
+  transition:.2s;
+}
+
+.menu button span {
+  display:inline-block;
+  width:29px;
+  font-size:18px;
+}
+
+.menu button:hover {background:white}
+
+.menu button.active {
+  background:var(--green);
+  color:white;
+  box-shadow:0 7px 17px #829b7833;
+}
+
+.side-bottom {
+  margin-top:auto;
+  background:white;
+  border-radius:17px;
+  padding:20px 12px;
+  text-align:center;
+}
+
+.side-bottom div {font-size:27px}
+.side-bottom h3 {
+  font-family:"Playfair Display",serif;
+  color:var(--green-dark);
+  font-size:16px;
+  margin:8px 0;
+}
+.side-bottom p {
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.7;
+}
+
+.main {
+  width:calc(100% - 245px);
+  margin-left:245px;
+  padding:30px clamp(18px,4vw,55px);
+}
+
+.topbar {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:30px;
+}
+
+.topbar small {
+  color:var(--pink);
+  font-weight:bold;
+  font-size:11px;
+}
+
+.topbar h2 {
+  font-family:"Playfair Display",serif;
+  color:var(--green-dark);
+  font-size:24px;
+  margin-top:5px;
+}
+
+.avatar {
+  width:44px;
+  height:44px;
+  background:var(--pink-light);
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  font-size:22px;
+}
+
+/* PAGE */
+
+.page {display:none;animation:appear .4s}
+.page.active {display:block}
+
+.tag {
+  display:inline-block;
+  color:var(--pink);
+  background:var(--pink-light);
+  padding:7px 12px;
+  border-radius:30px;
+  font-size:9px;
+  font-weight:bold;
+  letter-spacing:1px;
+  margin-bottom:15px;
+}
+
+.intro {margin:10px 0 25px}
+
+.intro h1 {
+  font-family:"Playfair Display",serif;
+  font-size:40px;
+  color:var(--green-dark);
+}
+
+.intro p {
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.8;
+  margin-top:8px;
+}
+
+/* HOME */
+
+.hero {
+  min-height:265px;
+  border-radius:25px;
+  background:linear-gradient(115deg,#e8f0e2,#f8e8e9);
+  padding:32px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  overflow:hidden;
+  margin-bottom:30px;
+}
+
+.hero h1 {
+  font-family:"Playfair Display",serif;
+  font-size:43px;
+  line-height:1.2;
+  color:var(--green-dark);
+  margin:10px 0;
+}
+
+.hero p {
+  font-size:12px;
+  line-height:1.8;
+  color:#87907e;
+  max-width:340px;
+  margin-bottom:20px;
+}
+
+.hero-art {
+  font-size:100px;
+  background:#ffffff99;
+  width:175px;
+  height:175px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  position:relative;
+  flex-shrink:0;
+}
+
+.hero-art small {
+  position:absolute;
+  right:-10px;
+  bottom:5px;
+  font-size:32px;
+}
+
+.pink-btn,.green-btn {
+  padding:13px 19px;
+  border-radius:12px;
+  color:white;
+  font-size:11px;
+  font-weight:bold;
+  transition:.2s;
+}
+
+.pink-btn {background:var(--pink)}
+.green-btn {background:var(--green)}
+.pink-btn:hover,.green-btn:hover {transform:translateY(-3px);filter:brightness(.95)}
+
+.section-title {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:30px 0 17px;
+}
+
+.section-title h2 {
+  font-family:"Playfair Display",serif;
+  font-size:22px;
+  color:var(--green-dark);
+}
+
+.section-title small {
+  color:var(--green);
+  letter-spacing:2px;
+  font-size:9px;
+  font-weight:bold;
+}
+
+.mood-row {
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:12px;
+}
+
+.mood-row button {
+  background:white;
+  border:1px solid #f0e8e4;
+  border-radius:16px;
+  padding:16px 5px;
+  display:grid;
+  justify-items:center;
+  gap:7px;
+  transition:.2s;
+}
+
+.mood-row button:hover {
+  background:var(--pink-light);
+  transform:translateY(-3px);
+}
+
+.mood-row span {font-size:27px}
+.mood-row small {font-size:10px;color:var(--muted)}
+
+.stats {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+  margin-top:25px;
+}
+
+.stat {
+  background:white;
+  border:1px solid #f1eae5;
+  border-radius:18px;
+  padding:20px;
+}
+
+.stat-icon {
+  width:38px;
+  height:38px;
+  display:grid;
+  place-items:center;
+  border-radius:12px;
+  font-size:19px;
+  margin-bottom:12px;
+}
+
+.stat:nth-child(1) .stat-icon {background:var(--pink-light)}
+.stat:nth-child(2) .stat-icon {background:var(--green-light)}
+.stat:nth-child(3) .stat-icon {background:#fff0e6}
+
+.stat p {font-size:11px;color:var(--muted)}
+.stat h2 {
+  font-family:"Playfair Display",serif;
+  color:var(--green-dark);
+  font-size:29px;
+  margin:6px 0;
+}
+.stat small {font-size:9px;color:#b5aaa4}
+
+.bottom-grid {
+  display:grid;
+  grid-template-columns:1fr 1.3fr;
+  gap:15px;
+  margin-top:20px;
+}
+
+.quote,.recent {
+  border-radius:18px;
+  padding:22px;
+}
+
+.quote {background:var(--green-light)}
+.quote h3 {
+  font-family:"Playfair Display",serif;
+  font-size:24px;
+  color:var(--green-dark);
+}
+.quote p {
+  color:#899382;
+  font-size:11px;
+  line-height:1.8;
+  margin-top:12px;
+}
+
+.recent {
+  background:white;
+  border:1px solid #f1eae5;
+}
+
+.recent h3 {
+  color:var(--green-dark);
+  font-family:"Playfair Display",serif;
+  font-size:19px;
+  margin-bottom:15px;
+}
+
+/* FORMS */
+
+.panel {
+  background:white;
+  border:1px solid #f0e9e5;
+  border-radius:20px;
+  padding:25px;
+  box-shadow:0 8px 25px #8e777508;
+}
+
+.panel label {
+  display:block;
+  font-size:11px;
+  font-weight:bold;
+  color:var(--green-dark);
+  margin:18px 0 9px;
+}
+
+.panel input,.panel textarea {
+  width:100%;
+  padding:14px;
+  border:1px solid #f0e9e5;
+  border-radius:11px;
+  background:#fffdfc;
+  color:var(--text);
+  font-size:12px;
+  outline:none;
+}
+
+.panel textarea {resize:vertical;line-height:1.8}
+.panel input:focus,.panel textarea:focus {border-color:var(--pink)}
+
+.emoji-options {
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+}
+
+.emoji-options button {
+  width:43px;
+  height:43px;
+  background:#fff7f5;
+  border-radius:12px;
+  font-size:21px;
+  border:1px solid transparent;
+}
+
+.emoji-options button.selected {
+  border-color:var(--pink);
+  background:var(--pink-light);
+}
+
+.panel-actions {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-top:20px;
+}
+
+.panel-actions small {font-size:10px;color:var(--muted)}
+
+.cards {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+  margin-top:18px;
+}
+
+.saved-card {
+  background:white;
+  padding:20px;
+  border-radius:17px;
+  border:1px solid #f0e9e5;
+  overflow-wrap:anywhere;
+}
+
+.saved-card h3 {
+  font-family:"Playfair Display",serif;
+  color:var(--green-dark);
+  font-size:18px;
+  margin:9px 0;
+}
+
+.saved-card p {
+  font-size:11px;
+  line-height:1.8;
+  color:#918681;
+  white-space:pre-wrap;
+}
+
+.meta {
+  color:#b2a49e;
+  font-size:9px;
+}
+
+.delete {
+  margin-top:14px;
+  padding:8px 12px;
+  border-radius:9px;
+  background:var(--pink-light);
+  color:var(--pink);
+  font-size:10px;
+}
+
+.empty {
+  padding:25px;
+  text-align:center;
+  color:#b3a7a1;
+  background:white;
+  border-radius:15px;
+  font-size:11px;
+  line-height:1.8;
+}
+
+/* MOOD */
+
+.mood-picker {
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:10px;
+  margin:22px 0;
+}
+
+.mood-picker button {
+  padding:15px 5px;
+  border-radius:13px;
+  background:#fff8f7;
+  color:#928680;
+  border:1px solid #f0e9e5;
+  display:grid;
+  justify-items:center;
+  gap:8px;
+  font-size:10px;
+}
+
+.mood-picker span {font-size:26px}
+.mood-picker button.selected {
+  background:var(--pink-light);
+  border-color:var(--pink);
+}
+
+/* REFLECTION */
+
+.question {
+  background:#fffaf8;
+  border-radius:15px;
+  padding:18px;
+  margin-bottom:14px;
+}
+
+.question label {
+  display:block;
+  color:var(--green-dark);
+  font-family:"Playfair Display",serif;
+  font-size:16px;
+  margin:10px 0;
+}
+
+.question textarea {
+  width:100%;
+  min-height:90px;
+  border:1px solid #f0e9e5;
+  border-radius:10px;
+  padding:12px;
+  font-size:12px;
+  resize:vertical;
+}
+
+.banner {
+  background:linear-gradient(110deg,#edf3e8,#fff0f3);
+  border-radius:18px;
+  padding:25px;
+  margin-bottom:18px;
+}
+
+.banner h2 {
+  font-family:"Playfair Display",serif;
+  color:var(--green-dark);
+}
+.banner p {font-size:11px;color:#948b84;margin-top:8px;line-height:1.8}
+
+/* THOUGHTS */
+
+.paper {
+  background:white;
+  border:1px solid #f0e9e5;
+  border-radius:20px;
+  padding:25px;
+}
+
+.paper textarea {
+  width:100%;
+  min-height:270px;
+  border:0;
+  outline:0;
+  resize:vertical;
+  font-size:13px;
+  line-height:2.2;
+  color:var(--text);
+}
+
+/* GROWTH */
+
+.growth-banner {
+  background:linear-gradient(110deg,#eaf2e5,#fce8ec);
+  border-radius:20px;
+  padding:30px;
+}
+
+.growth-banner h2 {
+  font-family:"Playfair Display",serif;
+  color:var(--green-dark);
+  font-size:28px;
+  margin:10px 0;
+}
+
+.growth-banner p {
+  color:#899080;
+  font-size:12px;
+  line-height:1.8;
+  max-width:450px;
+}
+
+.app-footer {
+  text-align:center;
+  color:#b8aaa4;
+  font-size:10px;
+  padding:40px 10px 20px;
+}
+
+#toast {
+  position:fixed;
+  bottom:22px;
+  right:22px;
+  background:var(--green-dark);
+  color:white;
+  padding:13px 18px;
+  border-radius:12px;
+  font-size:11px;
+  opacity:0;
+  transform:translateY(12px);
+  transition:.3s;
+  z-index:200;
+  pointer-events:none;
+}
+
+#toast.show {
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* MOBILE */
+
+@media(max-width:850px) {
+  .sidebar {width:205px}
+  .main {width:calc(100% - 205px);margin-left:205px;padding:22px 18px}
+  .hero-art {width:125px;height:125px;font-size:70px}
+  .hero h1 {font-size:33px}
+  .mood-picker {grid-template-columns:repeat(3,1fr)}
+}
+
+@media(max-width:600px) {
+  #app.show {display:block}
+  .sidebar {
+    position:relative;
+    width:100%;
+    min-height:auto;
+    padding:16px;
+  }
+  .brand {margin-bottom:14px}
+  .side-title,.side-bottom {display:none}
+  .menu {
+    display:flex;
+    overflow-x:auto;
+    gap:6px;
+  }
+  .menu button {white-space:nowrap;padding:10px;font-size:10px}
+  .main {width:100%;margin:0;padding:18px 14px}
+  .hero {padding:22px;min-height:220px}
+  .hero-art {display:none}
+  .hero h1 {font-size:35px}
+  .stats,.bottom-grid,.cards {grid-template-columns:1fr}
+  .mood-row {grid-template-columns:repeat(5,minmax(60px,1fr));overflow-x:auto}
+  .topbar h2 {font-size:19px}
+  .open-content h1 {font-size:48px}
+}
+</style>
 </head>
+
 <body>
 
-  <!-- OPENING SCREEN -->
-  <section id="opening" class="opening">
-    <div class="opening-decoration flower-one">✿</div>
-    <div class="opening-decoration flower-two">❀</div>
-    <div class="opening-decoration berry-one">🍓</div>
-    <div class="opening-decoration leaf-one">🌿</div>
+<!-- OPENING -->
+<div id="opening">
+  <div class="decoration d1">✿</div>
+  <div class="decoration d2">🍓</div>
+  <div class="decoration d3">🌿</div>
+  <div class="decoration d4">🌸</div>
 
-    <div class="opening-content">
-      <div class="brand-icon">🌷</div>
-      <p class="eyebrow">A LITTLE PLACE FOR YOURSELF</p>
-      <h1>Berry <span>Matcha</span></h1>
-      <p class="opening-description">
-        Sebuah ruang kecil untuk bercerita,<br>
-        mengenal perasaan, dan tumbuh perlahan.
-      </p>
-      <button class="enter-button" onclick="enterApp()">
-        Open My Little Space <span>♡</span>
-      </button>
-      <p class="opening-footer">made with love & little flowers ✿</p>
-    </div>
-  </section>
-
-  <!-- MAIN APPLICATION -->
-  <div class="app" id="app">
-
-    <aside class="sidebar">
-      <div class="brand">
-        <div class="brand-symbol">🌷</div>
-        <div>
-          <h2>Berry Matcha</h2>
-          <small>my little safe space</small>
-        </div>
-      </div>
-
-      <div class="side-label">YOUR SPACE</div>
-
-      <nav class="navigation">
-        <button class="nav-item active" data-page="home" onclick="showPage('home')">
-          <span>⌂</span> Beranda
-        </button>
-        <button class="nav-item" data-page="journal" onclick="showPage('journal')">
-          <span>♡</span> Jurnal Pribadi
-        </button>
-        <button class="nav-item" data-page="mood" onclick="showPage('mood')">
-          <span>☁</span> Mengenali Emosi
-        </button>
-        <button class="nav-item" data-page="reflection" onclick="showPage('reflection')">
-          <span>✿</span> Refleksi Diri
-        </button>
-        <button class="nav-item" data-page="thoughts" onclick="showPage('thoughts')">
-          <span>✎</span> Ruang Pikiran
-        </button>
-        <button class="nav-item" data-page="growth" onclick="showPage('growth')">
-          <span>❀</span> Perkembangan Diri
-        </button>
-      </nav>
-
-      <div class="sidebar-bottom">
-        <div class="sidebar-flower">🌼</div>
-        <p>Take your time.</p>
-        <small>You are growing at your own pace.</small>
-      </div>
-    </aside>
-
-    <main class="main-content">
-
-      <header class="topbar">
-        <div>
-          <p class="top-date" id="currentDate"></p>
-          <h2 id="pageHeading">A little hello, lovely soul ♡</h2>
-        </div>
-        <div class="profile-circle">🌷</div>
-      </header>
-
-      <!-- HOME -->
-      <section class="page active" id="home">
-
-        <div class="hero-card">
-          <div class="hero-text">
-            <span class="mini-tag">✿ YOUR PERSONAL SPACE</span>
-            <h1>Hey, welcome<br>to your little world!</h1>
-            <p>
-              Tidak harus selalu baik-baik saja.
-              Di sini, kamu boleh menjadi dirimu sendiri.
-            </p>
-            <button class="pink-button" onclick="showPage('journal')">
-              Write your story <span>↗</span>
-            </button>
-          </div>
-          <div class="hero-art">
-            <div class="hero-circle">
-              <span>🌸</span>
-              <span class="tiny-berry">🍓</span>
-            </div>
-            <div class="floating-note">breathe & bloom ♡</div>
-          </div>
-          <span class="hero-decoration">✿</span>
-        </div>
-
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">A SMALL CHECK-IN</p>
-            <h2>How are you feeling today?</h2>
-          </div>
-          <span class="soft-flower">🌼</span>
-        </div>
-
-        <div class="mood-preview">
-          <button onclick="quickMood('Senang','😊')">
-            <span>😊</span><small>Senang</small>
-          </button>
-          <button onclick="quickMood('Tenang','😌')">
-            <span>😌</span><small>Tenang</small>
-          </button>
-          <button onclick="quickMood('Sedih','🥺')">
-            <span>🥺</span><small>Sedih</small>
-          </button>
-          <button onclick="quickMood('Cemas','😟')">
-            <span>😟</span><small>Cemas</small>
-          </button>
-          <button onclick="quickMood('Lelah','😴')">
-            <span>😴</span><small>Lelah</small>
-          </button>
-        </div>
-
-        <div class="dashboard-grid">
-          <div class="stat-card">
-            <div class="stat-icon pink">♡</div>
-            <p>Total cerita</p>
-            <h2 id="journalCount">0</h2>
-            <small>cerita yang kamu simpan</small>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon green">☁</div>
-            <p>Catatan emosi</p>
-            <h2 id="moodCount">0</h2>
-            <small>perasaan yang kamu kenali</small>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon peach">✿</div>
-            <p>Refleksi diri</p>
-            <h2 id="reflectionCount">0</h2>
-            <small>hal yang kamu pelajari</small>
-          </div>
-        </div>
-
-        <div class="bottom-grid">
-          <div class="quote-card">
-            <span>“</span>
-            <h3>Little by little,<br>you are becoming.</h3>
-            <p>Tidak apa-apa jika prosesmu lebih lambat. Setiap langkah tetap berarti.</p>
-            <small>— a gentle reminder ♡</small>
-          </div>
-          <div class="recent-card">
-            <div class="card-heading">
-              <h3>Recent stories</h3>
-              <button onclick="showPage('journal')">See all ↗</button>
-            </div>
-            <div id="recentStories" class="recent-list">
-              <div class="empty-state">Belum ada cerita. Yuk, tulis cerita pertamamu! 🌷</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- JOURNAL -->
-      <section class="page" id="journal">
-        <div class="page-intro">
-          <span class="mini-tag">♡ YOUR PRIVATE DIARY</span>
-          <h1>Dear, little diary.</h1>
-          <p>Tuangkan apa pun yang sedang ada di pikiranmu.</p>
-        </div>
-
-        <div class="editor-card">
-          <label>Judul cerita</label>
-          <input id="journalTitle" type="text" placeholder="Apa yang ingin kamu ceritakan?">
-
-          <label>Bagaimana perasaanmu?</label>
-          <div class="mood-options" id="journalMoods">
-            <button class="selected" data-mood="😊 Senang">😊</button>
-            <button data-mood="😌 Tenang">😌</button>
-            <button data-mood="🥺 Sedih">🥺</button>
-            <button data-mood="😟 Cemas">😟</button>
-            <button data-mood="😴 Lelah">😴</button>
-            <button data-mood="😡 Kesal">😡</button>
-          </div>
-
-          <label>Ceritakan harimu</label>
-          <textarea id="journalText" rows="8" placeholder="Hari ini aku ingin bercerita tentang..."></textarea>
-
-          <label>Apa yang kamu butuhkan saat ini?</label>
-          <input id="journalNeed" type="text" placeholder="Misalnya: istirahat, didengarkan, waktu sendiri...">
-
-          <div class="editor-footer">
-            <small>🌷 Your story is yours.</small>
-            <button class="pink-button" onclick="saveJournal()">Save my story ♡</button>
-          </div>
-        </div>
-
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">YOUR MEMORIES</p>
-            <h2>My little stories</h2>
-          </div>
-        </div>
-        <div id="journalList" class="story-grid"></div>
-      </section>
-
-      <!-- MOOD -->
-      <section class="page" id="mood">
-        <div class="page-intro">
-          <span class="mini-tag">☁ UNDERSTAND YOUR FEELINGS</span>
-          <h1>What's in your heart?</h1>
-          <p>Semua perasaan boleh hadir. Cobalah mengenalinya tanpa menghakimi diri sendiri.</p>
-        </div>
-
-        <div class="mood-main-card">
-          <h2>Bagaimana perasaanmu sekarang?</h2>
-          <p>Pilih yang paling menggambarkan keadaanmu saat ini.</p>
-          <div class="mood-picker">
-            <button onclick="selectMood('Senang','😊',this)"><span>😊</span>Senang</button>
-            <button onclick="selectMood('Tenang','😌',this)"><span>😌</span>Tenang</button>
-            <button onclick="selectMood('Sedih','🥺',this)"><span>🥺</span>Sedih</button>
-            <button onclick="selectMood('Cemas','😟',this)"><span>😟</span>Cemas</button>
-            <button onclick="selectMood('Lelah','😴',this)"><span>😴</span>Lelah</button>
-            <button onclick="selectMood('Kesal','😡',this)"><span>😡</span>Kesal</button>
-          </div>
-          <p class="selected-mood" id="selectedMood">Belum ada perasaan yang dipilih.</p>
-          <label>Ingin menceritakan alasannya?</label>
-          <textarea id="moodNote" rows="3" placeholder="Aku merasa seperti ini karena..."></textarea>
-          <button class="pink-button" onclick="saveMood()">Simpan perasaan ♡</button>
-        </div>
-
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">YOUR EMOTIONAL NOTES</p>
-            <h2>My mood journal</h2>
-          </div>
-        </div>
-        <div id="moodList" class="record-list"></div>
-      </section>
-
-      <!-- REFLECTION -->
-      <section class="page" id="reflection">
-        <div class="page-intro">
-          <span class="mini-tag">✿ GET TO KNOW YOURSELF</span>
-          <h1>A moment with myself.</h1>
-          <p>Luangkan sedikit waktu untuk memahami dirimu lebih dalam.</p>
-        </div>
-
-        <div class="reflection-banner">
-          <span>🌷</span>
-          <div>
-            <h2>Dear self, let's talk.</h2>
-            <p>Jawablah dengan jujur. Tidak ada jawaban benar atau salah.</p>
-          </div>
-        </div>
-
-        <div class="reflection-form">
-          <div class="question-card">
-            <span>01</span>
-            <label>Apa hal kecil yang membuatmu bahagia akhir-akhir ini?</label>
-            <textarea id="ref1" placeholder="Aku merasa bahagia ketika..."></textarea>
-          </div>
-          <div class="question-card">
-            <span>02</span>
-            <label>Hal apa yang akhir-akhir ini cukup sulit untukmu?</label>
-            <textarea id="ref2" placeholder="Belakangan ini aku merasa..."></textarea>
-          </div>
-          <div class="question-card">
-            <span>03</span>
-            <label>Apa yang ingin kamu sampaikan kepada dirimu sendiri?</label>
-            <textarea id="ref3" placeholder="Dear myself..."></textarea>
-          </div>
-          <div class="question-card">
-            <span>04</span>
-            <label>Apa satu hal yang kamu syukuri hari ini?</label>
-            <textarea id="ref4" placeholder="Aku bersyukur karena..."></textarea>
-          </div>
-          <button class="pink-button" onclick="saveReflection()">Simpan refleksi ♡</button>
-        </div>
-
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">YOUR SELF DISCOVERY</p>
-            <h2>Past reflections</h2>
-          </div>
-        </div>
-        <div id="reflectionList" class="record-list"></div>
-      </section>
-
-      <!-- THOUGHTS -->
-      <section class="page" id="thoughts">
-        <div class="page-intro">
-          <span class="mini-tag">✎ LET YOUR THOUGHTS FLOW</span>
-          <h1>Inside my mind.</h1>
-          <p>Tulis apa saja yang sedang memenuhi pikiranmu. Tidak perlu menyusunnya dengan sempurna.</p>
-        </div>
-
-        <div class="thought-paper">
-          <div class="paper-top">
-            <span>MY MIND SPACE</span>
-            <span>✿ ♡ 🌷</span>
-          </div>
-          <textarea id="thoughtText" placeholder="Aku sedang memikirkan..."></textarea>
-          <div class="editor-footer">
-            <small>Take a breath. Write freely.</small>
-            <button class="pink-button" onclick="saveThought()">Simpan catatan ♡</button>
-          </div>
-        </div>
-
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">LITTLE THOUGHTS</p>
-            <h2>My mind notes</h2>
-          </div>
-        </div>
-        <div id="thoughtList" class="record-list"></div>
-      </section>
-
-      <!-- GROWTH -->
-      <section class="page" id="growth">
-        <div class="page-intro">
-          <span class="mini-tag">❀ YOUR JOURNEY MATTERS</span>
-          <h1>Look how far you've come.</h1>
-          <p>Perjalanan mengenal diri tidak harus terburu-buru.</p>
-        </div>
-
-        <div class="growth-hero">
-          <div>
-            <span class="mini-tag">A LITTLE REMINDER</span>
-            <h2>You don't have to bloom all at once.</h2>
-            <p>Setiap pengalaman, cerita, dan perasaan adalah bagian dari proses pertumbuhanmu.</p>
-          </div>
-          <span>🌻</span>
-        </div>
-
-        <div class="dashboard-grid">
-          <div class="stat-card">
-            <div class="stat-icon pink">♡</div>
-            <p>Cerita tersimpan</p>
-            <h2 id="growthJournal">0</h2>
-            <small>kenangan yang kamu tulis</small>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon green">☁</div>
-            <p>Emosi dikenali</p>
-            <h2 id="growthMood">0</h2>
-            <small>catatan suasana hati</small>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon peach">✿</div>
-            <p>Refleksi tersimpan</p>
-            <h2 id="growthReflection">0</h2>
-            <small>proses memahami diri</small>
-          </div>
-        </div>
-
-        <div class="growth-note">
-          <span>💌</span>
-          <div>
-            <h3>A letter to yourself</h3>
-            <p>
-              Kamu tidak harus selalu produktif, kuat, atau sempurna.
-              Beri dirimu waktu untuk beristirahat dan berkembang.
-              Hal kecil yang kamu lakukan hari ini tetap berarti.
-            </p>
-          </div>
-        </div>
-
-        <div class="export-card">
-          <div>
-            <h3>Keep your memories safe</h3>
-            <p>Unduh salinan catatanmu dalam format JSON untuk disimpan.</p>
-          </div>
-          <button class="green-button" onclick="exportData()">Download my data ↓</button>
-        </div>
-      </section>
-
-      <footer class="app-footer">
-        Made with 🍓 and matcha ♡ — Berry Matcha
-      </footer>
-    </main>
+  <div class="open-content">
+    <div class="logo-flower">🌷</div>
+    <p class="open-small">A LITTLE PLACE FOR YOURSELF</p>
+    <h1>Berry <span>Matcha</span></h1>
+    <p>
+      Sebuah ruang kecil untuk bercerita,<br>
+      mengenal perasaan, dan tumbuh perlahan.
+    </p>
+    <button class="enter" onclick="enterApp()">Open My Little Space ♡</button>
   </div>
+</div>
 
-  <div id="toast" class="toast">Saved successfully ♡</div>
-  <script src="script.js"></script>
+<!-- APPLICATION -->
+<div id="app">
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon">🌷</div>
+      <div>
+        <h2>Berry Matcha</h2>
+        <small>my little safe space</small>
+      </div>
+    </div>
+
+    <div class="side-title">YOUR SPACE</div>
+
+    <nav class="menu">
+      <button class="active" data-page="home" onclick="showPage('home')"><span>⌂</span>Beranda</button>
+      <button data-page="journal" onclick="showPage('journal')"><span>♡</span>Jurnal Pribadi</button>
+      <button data-page="mood" onclick="showPage('mood')"><span>☁</span>Mengenali Emosi</button>
+      <button data-page="reflection" onclick="showPage('reflection')"><span>✿</span>Refleksi Diri</button>
+      <button data-page="thoughts" onclick="showPage('thoughts')"><span>✎</span>Ruang Pikiran</button>
+      <button data-page="growth" onclick="showPage('growth')"><span>❀</span>Perkembangan Diri</button>
+    </nav>
+
+    <div class="side-bottom">
+      <div>🌼</div>
+      <h3>Take your time.</h3>
+      <p>You are growing at your own pace.</p>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <small id="date"></small>
+        <h2 id="heading">A little hello, lovely soul ♡</h2>
+      </div>
+      <div class="avatar">🌷</div>
+    </header>
+
+    <!-- HOME -->
+    <section class="page active" id="home">
+      <div class="hero">
+        <div>
+          <span class="tag">✿ YOUR PERSONAL SPACE</span>
+          <h1>Hey, welcome<br>to your little world!</h1>
+          <p>Tidak harus selalu baik-baik saja. Di sini, kamu boleh menjadi dirimu sendiri.</p>
+          <button class="pink-btn" onclick="showPage('journal')">Write your story ↗</button>
+        </div>
+        <div class="hero-art">🌸<small>🍓</small></div>
+      </div>
+
+      <div class="section-title">
+        <h2>How are you today?</h2>
+        <span>🌼</span>
+      </div>
+
+      <div class="mood-row">
+        <button onclick="quickMood('Senang','😊')"><span>😊</span><small>Senang</small></button>
+        <button onclick="quickMood('Tenang','😌')"><span>😌</span><small>Tenang</small></button>
+        <button onclick="quickMood('Sedih','🥺')"><span>🥺</span><small>Sedih</small></button>
+        <button onclick="quickMood('Cemas','😟')"><span>😟</span><small>Cemas</small></button>
+        <button onclick="quickMood('Lelah','😴')"><span>😴</span><small>Lelah</small></button>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-icon">♡</div>
+          <p>Total cerita</p>
+          <h2 id="countJournal">0</h2>
+          <small>cerita tersimpan</small>
+        </div>
+        <div class="stat">
+          <div class="stat-icon">☁</div>
+          <p>Catatan emosi</p>
+          <h2 id="countMood">0</h2>
+          <small>perasaan dikenali</small>
+        </div>
+        <div class="stat">
+          <div class="stat-icon">✿</div>
+          <p>Refleksi diri</p>
+          <h2 id="countReflection">0</h2>
+          <small>proses memahami diri</small>
+        </div>
+      </div>
+
+      <div class="bottom-grid">
+        <div class="quote">
+          <h3>Little by little,<br>you are becoming.</h3>
+          <p>Tidak apa-apa jika prosesmu lebih lambat. Setiap langkah tetap berarti.</p>
+        </div>
+        <div class="recent">
+          <h3>Recent stories ♡</h3>
+          <div id="recentStories" class="empty">Belum ada cerita. Yuk, mulai menulis! 🌷</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- JOURNAL -->
+    <section class="page" id="journal">
+      <div class="intro">
+        <span class="tag">♡ YOUR PRIVATE DIARY</span>
+        <h1>Dear, little diary.</h1>
+        <p>Tuangkan apa pun yang sedang ada di pikiranmu.</p>
+      </div>
+
+      <div class="panel">
+        <label>Judul cerita</label>
+        <input id="journalTitle" placeholder="Apa yang ingin kamu ceritakan?">
+
+        <label>Bagaimana perasaanmu?</label>
+        <div class="emoji-options" id="journalEmojis">
+          <button class="selected" data-value="😊 Senang">😊</button>
+          <button data-value="😌 Tenang">😌</button>
+          <button data-value="🥺 Sedih">🥺</button>
+          <button data-value="😟 Cemas">😟</button>
+          <button data-value="😴 Lelah">😴</button>
+          <button data-value="😡 Kesal">😡</button>
+        </div>
+
+        <label>Ceritakan harimu</label>
+        <textarea id="journalText" rows="7" placeholder="Hari ini aku ingin bercerita tentang..."></textarea>
+
+        <label>Apa yang kamu butuhkan saat ini?</label>
+        <input id="journalNeed" placeholder="Istirahat, waktu sendiri, atau didengarkan...">
+
+        <div class="panel-actions">
+          <small>🌷 Your story is yours.</small>
+          <button class="pink-btn" onclick="saveJournal()">Save my story ♡</button>
+        </div>
+      </div>
+
+      <div class="section-title"><h2>My little stories</h2></div>
+      <div id="journalList" class="cards"></div>
+    </section>
+
+    <!-- MOOD -->
+    <section class="page" id="mood">
+      <div class="intro">
+        <span class="tag">☁ UNDERSTAND YOUR FEELINGS</span>
+        <h1>What's in your heart?</h1>
+        <p>Kenali perasaanmu tanpa harus menghakimi diri sendiri.</p>
+      </div>
+
+      <div class="panel">
+        <h2 style="font-family:'Playfair Display';color:var(--green-dark)">Bagaimana perasaanmu sekarang?</h2>
+        <div class="mood-picker">
+          <button onclick="selectMood('Senang','😊',this)"><span>😊</span>Senang</button>
+          <button onclick="selectMood('Tenang','😌',this)"><span>😌</span>Tenang</button>
+          <button onclick="selectMood('Sedih','🥺',this)"><span>🥺</span>Sedih</button>
+          <button onclick="selectMood('Cemas','😟',this)"><span>😟</span>Cemas</button>
+          <button onclick="selectMood('Lelah','😴',this)"><span>😴</span>Lelah</button>
+          <button onclick="selectMood('Kesal','😡',this)"><span>😡</span>Kesal</button>
+        </div>
+        <p id="selectedMood" style="font-size:11px;color:var(--green-dark)">Belum memilih perasaan.</p>
+        <label>Ingin menceritakan alasannya?</label>
+        <textarea id="moodNote" rows="4" placeholder="Aku merasa seperti ini karena..."></textarea>
+        <button class="pink-btn" style="margin-top:15px" onclick="saveMood()">Simpan perasaan ♡</button>
+      </div>
+
+      <div class="section-title"><h2>My mood journal</h2></div>
+      <div id="moodList"></div>
+    </section>
+
+    <!-- REFLECTION -->
+    <section class="page" id="reflection">
+      <div class="intro">
+        <span class="tag">✿ GET TO KNOW YOURSELF</span>
+        <h1>A moment with myself.</h1>
+        <p>Luangkan waktu untuk memahami dirimu lebih dalam.</p>
+      </div>
+
+      <div class="banner">
+        <h2>Dear self, let's talk. 🌷</h2>
+        <p>Jawablah dengan jujur. Tidak ada jawaban benar atau salah.</p>
+      </div>
+
+      <div class="panel">
+        <div class="question">
+          <label>01. Apa hal kecil yang membuatmu bahagia akhir-akhir ini?</label>
+          <textarea id="ref1" placeholder="Aku bahagia ketika..."></textarea>
+        </div>
+        <div class="question">
+          <label>02. Hal apa yang akhir-akhir ini cukup sulit untukmu?</label>
+          <textarea id="ref2" placeholder="Belakangan ini aku merasa..."></textarea>
+        </div>
+        <div class="question">
+          <label>03. Apa yang ingin kamu sampaikan kepada dirimu sendiri?</label>
+          <textarea id="ref3" placeholder="Dear myself..."></textarea>
+        </div>
+        <div class="question">
+          <label>04. Apa satu hal yang kamu syukuri hari ini?</label>
+          <textarea id="ref4" placeholder="Aku bersyukur karena..."></textarea>
+        </div>
+        <button class="pink-btn" onclick="saveReflection()">Simpan refleksi ♡</button>
+      </div>
+
+      <div class="section-title"><h2>Past reflections</h2></div>
+      <div id="reflectionList"></div>
+    </section>
+
+    <!-- THOUGHTS -->
+    <section class="page" id="thoughts">
+      <div class="intro">
+        <span class="tag">✎ LET YOUR THOUGHTS FLOW</span>
+        <h1>Inside my mind.</h1>
+        <p>Tulis apa saja yang sedang memenuhi pikiranmu.</p>
+      </div>
+
+      <div class="paper">
+        <p style="color:var(--pink);font-size:10px;letter-spacing:2px;margin-bottom:15px">MY MIND SPACE ✿</p>
+        <textarea id="thoughtText" placeholder="Aku sedang memikirkan..."></textarea>
+        <button class="pink-btn" onclick="saveThought()">Simpan catatan ♡</button>
+      </div>
+
+      <div class="section-title"><h2>My mind notes</h2></div>
+      <div id="thoughtList"></div>
+    </section>
+
+    <!-- GROWTH -->
+    <section class="page" id="growth">
+      <div class="intro">
+        <span class="tag">❀ YOUR JOURNEY MATTERS</span>
+        <h1>Look how far you've come.</h1>
+        <p>Perjalanan mengenal diri tidak harus terburu-buru.</p>
+      </div>
+
+      <div class="growth-banner">
+        <span class="tag">A LITTLE REMINDER</span>
+        <h2>You don't have to bloom all at once. 🌻</h2>
+        <p>Setiap pengalaman, cerita, dan perasaan adalah bagian dari proses pertumbuhanmu.</p>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><p>Cerita tersimpan</p><h2 id="growthJournal">0</h2></div>
+        <div class="stat"><p>Emosi dikenali</p><h2 id="growthMood">0</h2></div>
+        <div class="stat"><p>Refleksi tersimpan</p><h2 id="growthReflection">0</h2></div>
+      </div>
+
+      <div class="banner" style="margin-top:20px">
+        <h2>A letter to yourself 💌</h2>
+        <p>Kamu tidak harus selalu produktif, kuat, atau sempurna. Beri dirimu waktu untuk beristirahat dan berkembang.</p>
+      </div>
+
+      <div class="panel">
+        <h3 style="font-family:'Playfair Display';color:var(--green-dark)">Keep your memories safe</h3>
+        <p style="font-size:11px;color:var(--muted);margin:10px 0 15px">Unduh salinan catatanmu untuk disimpan.</p>
+        <button class="green-btn" onclick="exportData()">Download my data ↓</button>
+      </div>
+    </section>
+
+    <footer class="app-footer">Made with 🍓 and matcha ♡ — Berry Matcha</footer>
+  </main>
+</div>
+
+<div id="toast"></div>
+
+<script>
+"use strict";
+
+const KEY = "berry_matcha_v2";
+
+let data = {
+  journals: [],
+  moods: [],
+  reflections: [],
+  thoughts: []
+};
+
+let journalMood = "😊 Senang";
+let chosenMood = null;
+
+function loadData() {
+  try {
+    const saved = localStorage.getItem(KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      data = {
+        journals: Array.isArray(parsed.journals) ? parsed.journals : [],
+        moods: Array.isArray(parsed.moods) ? parsed.moods : [],
+        reflections: Array.isArray(parsed.reflections) ? parsed.reflections : [],
+        thoughts: Array.isArray(parsed.thoughts) ? parsed.thoughts : []
+      };
+    }
+  } catch (error) {
+    console.error("Data tidak dapat dibaca:", error);
+  }
+}
+
+function persist() {
+  try {
+    localStorage.setItem(KEY, JSON.stringify(data));
+    renderAll();
+    return true;
+  } catch (error) {
+    alert("Penyimpanan gagal. Periksa penyimpanan browser.");
+    return false;
+  }
+}
+
+function safe(value) {
+  return String(value ?? "").replace(/[&<>"']/g, function(char) {
+    const map = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#039;"
+    };
+    return map[char];
+  });
+}
+
+function dateNow() {
+  return new Date().toLocaleString("id-ID", {
+    day:"numeric",
+    month:"long",
+    year:"numeric",
+    hour:"2-digit",
+    minute:"2-digit"
+  });
+}
+
+function toast(message) {
+  const box = document.getElementById("toast");
+  box.textContent = message;
+  box.classList.add("show");
+
+  clearTimeout(toast.timer);
+  toast.timer = setTimeout(function() {
+    box.classList.remove("show");
+  }, 2300);
+}
+
+function enterApp() {
+  document.getElementById("opening").classList.add("hide");
+  document.getElementById("app").classList.add("show");
+  renderAll();
+}
+
+const headings = {
+  home:"A little hello, lovely soul ♡",
+  journal:"Your private diary ♡",
+  mood:"Understand your feelings ☁",
+  reflection:"A moment with yourself ✿",
+  thoughts:"Inside your mind ✎",
+  growth:"Your journey matters 🌷"
+};
+
+function showPage(id) {
+  document.querySelectorAll(".page").forEach(function(page) {
+    page.classList.remove("active");
+  });
+
+  document.querySelectorAll(".menu button").forEach(function(button) {
+    button.classList.remove("active");
+  });
+
+  const page = document.getElementById(id);
+  if (!page) return;
+
+  page.classList.add("active");
+
+  const menuButton = document.querySelector('.menu button[data-page="' + id + '"]');
+  if (menuButton) menuButton.classList.add("active");
+
+  document.getElementById("heading").textContent = headings[id] || "Berry Matcha";
+  window.scrollTo(0,0);
+}
+
+function renderStats() {
+  const j = data.journals.length;
+  const m = data.moods.length;
+  const r = data.reflections.length;
+
+  document.getElementById("countJournal").textContent = j;
+  document.getElementById("countMood").textContent = m;
+  document.getElementById("countReflection").textContent = r;
+
+  document.getElementById("growthJournal").textContent = j;
+  document.getElementById("growthMood").textContent = m;
+  document.getElementById("growthReflection").textContent = r;
+}
+
+function renderAll() {
+  renderStats();
+  renderJournals();
+  renderMoods();
+  renderReflections();
+  renderThoughts();
+  renderRecent();
+}
+
+function quickMood(name, emoji) {
+  chosenMood = {name:name,emoji:emoji};
+  showPage("mood");
+
+  document.querySelectorAll(".mood-picker button").forEach(function(button) {
+    button.classList.toggle("selected", button.textContent.includes(name));
+  });
+
+  document.getElementById("selectedMood").textContent = emoji + " Kamu memilih: " + name;
+}
+
+function selectMood(name, emoji, button) {
+  chosenMood = {name:name,emoji:emoji};
+
+  document.querySelectorAll(".mood-picker button").forEach(function(item) {
+    item.classList.remove("selected");
+  });
+
+  button.classList.add("selected");
+  document.getElementById("selectedMood").textContent = emoji + " Kamu memilih: " + name;
+}
+
+document.querySelectorAll("#journalEmojis button").forEach(function(button) {
+  button.addEventListener("click", function() {
+    document.querySelectorAll("#journalEmojis button").forEach(function(item) {
+      item.classList.remove("selected");
+    });
+
+    button.classList.add("selected");
+    journalMood = button.dataset.value;
+  });
+});
+
+function saveJournal() {
+  const title = document.getElementById("journalTitle").value.trim();
+  const story = document.getElementById("journalText").value.trim();
+  const need = document.getElementById("journalNeed").value.trim();
+
+  if (!title || !story) {
+    toast("Isi judul dan cerita terlebih dahulu 🌷");
+    return;
+  }
+
+  data.journals.unshift({
+    id:Date.now(),
+    title:title,
+    story:story,
+    need:need,
+    mood:journalMood,
+    date:dateNow()
+  });
+
+  if (persist()) {
+    document.getElementById("journalTitle").value = "";
+    document.getElementById("journalText").value = "";
+    document.getElementById("journalNeed").value = "";
+    toast("Cerita berhasil disimpan ♡");
+  }
+}
+
+function renderJournals() {
+  const box = document.getElementById("journalList");
+
+  if (!data.journals.length) {
+    box.innerHTML = '<div class="empty">Belum ada cerita tersimpan 🌷</div>';
+    return;
+  }
+
+  box.innerHTML = data.journals.map(function(item) {
+    return `
+      <article class="saved-card">
+        <div class="meta">${safe(item.date)} · ${safe(item.mood)}</div>
+        <h3>${safe(item.title)}</h3>
+        <p>${safe(item.story)}</p>
+        ${item.need ? '<p style="color:#cf7890;margin-top:10px">♡ Yang dibutuhkan: '+safe(item.need)+'</p>' : ""}
+        <button class="delete" onclick="removeItem('journals',${Number(item.id)})">Hapus cerita</button>
+      </article>
+    `;
+  }).join("");
+}
+
+function renderRecent() {
+  const box = document.getElementById("recentStories");
+  const recent = data.journals.slice(0,3);
+
+  if (!recent.length) {
+    box.innerHTML = '<div class="empty">Belum ada cerita. Yuk, mulai menulis! 🌷</div>';
+    return;
+  }
+
+  box.innerHTML = recent.map(function(item) {
+    return '<div style="padding:12px 0;border-bottom:1px solid #f2eae6"><strong style="font-size:12px;color:#536e4c">'+safe(item.title)+'</strong><p class="meta" style="margin-top:5px">'+safe(item.date)+'</p></div>';
+  }).join("");
+}
+
+function saveMood() {
+  if (!chosenMood) {
+    toast("Pilih perasaan terlebih dahulu 🌷");
+    return;
+  }
+
+  data.moods.unshift({
+    id:Date.now(),
+    name:chosenMood.name,
+    emoji:chosenMood.emoji,
+    note:document.getElementById("moodNote").value.trim(),
+    date:dateNow()
+  });
+
+  if (persist()) {
+    chosenMood = null;
+    document.getElementById("moodNote").value = "";
+    document.getElementById("selectedMood").textContent = "Belum memilih perasaan.";
+    document.querySelectorAll(".mood-picker button").forEach(function(item) {
+      item.classList.remove("selected");
+    });
+    toast("Perasaan berhasil disimpan ♡");
+  }
+}
+
+function renderMoods() {
+  const box = document.getElementById("moodList");
+
+  if (!data.moods.length) {
+    box.innerHTML = '<div class="empty">Catatan perasaanmu akan muncul di sini ☁</div>';
+    return;
+  }
+
+  box.innerHTML = data.moods.map(function(item) {
+    return `
+      <article class="saved-card" style="margin-top:12px">
+        <div class="meta">${safe(item.date)}</div>
+        <h3>${safe(item.emoji)} ${safe(item.name)}</h3>
+        <p>${safe(item.note || "Tidak ada catatan tambahan.")}</p>
+        <button class="delete" onclick="removeItem('moods',${Number(item.id)})">Hapus catatan</button>
+      </article>
+    `;
+  }).join("");
+}
+
+function saveReflection() {
+  const answers = [1,2,3,4].map(function(number) {
+    return document.getElementById("ref" + number).value.trim();
+  });
+
+  if (!answers.some(Boolean)) {
+    toast("Isi setidaknya satu jawaban 🌷");
+    return;
+  }
+
+  data.reflections.unshift({
+    id:Date.now(),
+    answers:answers,
+    date:dateNow()
+  });
+
+  if (persist()) {
+    [1,2,3,4].forEach(function(number) {
+      document.getElementById("ref" + number).value = "";
+    });
+    toast("Refleksi berhasil disimpan ♡");
+  }
+}
+
+function renderReflections() {
+  const box = document.getElementById("reflectionList");
+  const questions = [
+    "Hal kecil yang membuatku bahagia",
+    "Hal yang cukup sulit akhir-akhir ini",
+    "Pesan untuk diriku sendiri",
+    "Hal yang aku syukuri"
+  ];
+
+  if (!data.reflections.length) {
+    box.innerHTML = '<div class="empty">Refleksi dirimu akan tersimpan di sini ✿</div>';
+    return;
+  }
+
+  box.innerHTML = data.reflections.map(function(item) {
+    const answers = item.answers.map(function(answer,index) {
+      if (!answer) return "";
+      return '<p style="margin-top:12px"><strong>'+questions[index]+'</strong><br>'+safe(answer)+'</p>';
+    }).join("");
+
+    return `
+      <article class="saved-card" style="margin-top:12px">
+        <div class="meta">${safe(item.date)}</div>
+        <h3>♡ My reflection</h3>
+        ${answers}
+        <button class="delete" onclick="removeItem('reflections',${Number(item.id)})">Hapus refleksi</button>
+      </article>
+    `;
+  }).join("");
+}
+
+function saveThought() {
+  const text = document.getElementById("thoughtText").value.trim();
+
+  if (!text) {
+    toast("Tulis sesuatu terlebih dahulu ✎");
+    return;
+  }
+
+  data.thoughts.unshift({
+    id:Date.now(),
+    text:text,
+    date:dateNow()
+  });
+
+  if (persist()) {
+    document.getElementById("thoughtText").value = "";
+    toast("Catatan berhasil disimpan ♡");
+  }
+}
+
+function renderThoughts() {
+  const box = document.getElementById("thoughtList");
+
+  if (!data.thoughts.length) {
+    box.innerHTML = '<div class="empty">Pikiranmu akan muncul di sini 🌷</div>';
+    return;
+  }
+
+  box.innerHTML = data.thoughts.map(function(item) {
+    return `
+      <article class="saved-card" style="margin-top:12px">
+        <div class="meta">${safe(item.date)}</div>
+        <h3>✎ Little thought</h3>
+        <p>${safe(item.text)}</p>
+        <button class="delete" onclick="removeItem('thoughts',${Number(item.id)})">Hapus catatan</button>
+      </article>
+    `;
+  }).join("");
+}
+
+function removeItem(category,id) {
+  if (!confirm("Yakin ingin menghapus catatan ini?")) return;
+
+  data[category] = data[category].filter(function(item) {
+    return item.id !== id;
+  });
+
+  if (persist()) toast("Catatan berhasil dihapus.");
+}
+
+function exportData() {
+  const file = new Blob(
+    [JSON.stringify(data,null,2)],
+    {type:"application/json"}
+  );
+
+  const url = URL.createObjectURL(file);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = "berry-matcha-backup.json";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  URL.revokeObjectURL(url);
+  toast("Data berhasil diunduh ♡");
+}
+
+document.getElementById("date").textContent =
+  new Date().toLocaleDateString("id-ID", {
+    weekday:"long",
+    day:"numeric",
+    month:"long",
+    year:"numeric"
+  });
+
+loadData();
+renderAll();
+</script>
+
 </body>
 </html>
