@@ -4,247 +4,281 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Berry Matcha | Wellness Diary</title>
+<title>Berry Matcha - Jurnal Kesehatan Mental</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- HALAMAN PEMBUKA -->
+<div id="opening">
+  <div class="floating flower flower1">🌷</div>
+  <div class="floating flower flower2">🍓</div>
+  <div class="floating flower flower3">🌿</div>
+  <div class="opening-content">
+    <div class="opening-logo">✿</div>
+    <p class="opening-small">RUANG AMAN UNTUK DIRIMU</p>
+    <h1>Berry <span>Matcha</span></h1>
+    <p class="opening-desc">
+      Sebuah ruang untuk mengenali perasaan,
+      memahami pikiran, dan menghargai dirimu sendiri.
+    </p>
+    <button class="start-button" onclick="enterApp()">
+      Mulai Perjalanan <span>→</span>
+    </button>
+    <small class="opening-footer">Tumbuh perlahan, tidak harus sempurna.</small>
+  </div>
+</div>
+
+<!-- APLIKASI -->
+<div id="app" class="app">
+
 <aside class="sidebar">
- <div class="brand">✿ Berry<span>Matcha</span></div>
- <p class="subbrand">MENTAL WELLNESS SPACE</p>
+  <div class="brand">✿ Berry<span>Matcha</span></div>
+  <p class="brand-desc">JURNAL KESEHATAN MENTAL</p>
 
- <div class="profile">
-  <div class="avatar">🌷</div>
-  <div><b>My Personal Space</b><small>Take care of yourself</small></div>
- </div>
+  <div class="user-box">
+    <div class="user-icon">🌷</div>
+    <div>
+      <b>Ruang Pribadiku</b>
+      <small>Selamat datang kembali</small>
+    </div>
+  </div>
 
- <p class="nav-title">MAIN MENU</p>
- <button class="nav active" onclick="go(0)">⌂ Dashboard</button>
- <button class="nav" onclick="go(1)">📖 Personal Diary</button>
- <button class="nav" onclick="go(2)">🌈 Mood Tracker</button>
- <button class="nav" onclick="go(3)">🧠 Self Reflection</button>
- <button class="nav" onclick="go(4)">☁️ Mind Journal</button>
- <button class="nav" onclick="go(5)">🌿 Self Care</button>
- <button class="nav" onclick="go(6)">📊 My Progress</button>
+  <p class="nav-heading">MENU UTAMA</p>
+  <button class="nav active" onclick="go(0)">⌂ Beranda</button>
+  <button class="nav" onclick="go(1)">📖 Jurnal Pribadi</button>
+  <button class="nav" onclick="go(2)">🌈 Kenali Emosi</button>
+  <button class="nav" onclick="go(3)">🧠 Refleksi Diri</button>
+  <button class="nav" onclick="go(4)">☁️ Ruang Pikiran</button>
+  <button class="nav" onclick="go(5)">🌱 Perkembangan Diri</button>
 
- <div class="sidebar-bottom">
-  <p>🍵 Grow at your own pace.</p>
-  <small>Berry Matcha Diary © 2026</small>
- </div>
+  <div class="sidebar-bottom">
+    <span>🍓</span>
+    <p>Dirimu juga layak mendapatkan perhatian dan pengertian.</p>
+  </div>
 </aside>
 
 <main>
+  <header class="topbar">
+    <div>
+      <small>RUANG REFLEKSI PRIBADI</small>
+      <h2 id="pageTitle">Beranda</h2>
+    </div>
+    <div id="date"></div>
+  </header>
 
-<div class="topbar">
- <div>
-  <small>YOUR PERSONAL WELLNESS JOURNAL</small>
-  <h2 id="pageTitle">Dashboard</h2>
- </div>
- <div class="date" id="today"></div>
-</div>
+  <!-- BERANDA -->
+  <section class="slide active">
+    <div class="welcome">
+      <div>
+        <span class="tag">SELAMAT DATANG DI RUANGMU 🌿</span>
+        <h1>Bagaimana keadaanmu<br>hari ini?</h1>
+        <p>
+          Tidak semua hal harus kamu simpan sendiri.
+          Luangkan waktu untuk mengenali perasaan,
+          memahami pikiran, dan mendengarkan dirimu.
+        </p>
+        <button class="primary" onclick="go(1)">Mulai Menulis Jurnal →</button>
+      </div>
+      <div class="welcome-image">🌷</div>
+    </div>
 
-<!-- DASHBOARD -->
-<section class="slide active">
- <div class="welcome">
-  <div>
-   <small>WELCOME TO YOUR SAFE SPACE 🌷</small>
-   <h1>How are you<br>feeling today?</h1>
-   <p>Berikan waktu untuk dirimu sendiri. Kenali perasaanmu, hargai prosesmu, dan tumbuh dengan perlahan.</p>
-   <button class="primary" onclick="go(1)">Write Today's Diary →</button>
+    <div class="stats">
+      <div class="stat">
+        <span>📖</span>
+        <small>Jurnal tersimpan</small>
+        <h2 id="totalDiary">0</h2>
+      </div>
+      <div class="stat">
+        <span>🌈</span>
+        <small>Catatan emosi</small>
+        <h2 id="totalMood">0</h2>
+      </div>
+      <div class="stat">
+        <span>🧠</span>
+        <small>Refleksi diri</small>
+        <h2 id="totalReflection">0</h2>
+      </div>
+    </div>
+
+    <div class="panel">
+      <span class="tag">PERTANYAAN HARI INI</span>
+      <h2>Apa yang sedang kamu rasakan, tetapi belum sempat kamu ceritakan?</h2>
+      <p>
+        Kamu tidak perlu menyusun kata-kata dengan sempurna.
+        Mulailah dari hal sederhana.
+      </p>
+      <button class="secondary" onclick="go(1)">Ceritakan di jurnal →</button>
+    </div>
+
+    <div class="panel soft-pink">
+      <h3>Pengingat untuk dirimu 🌷</h3>
+      <p>
+        Tidak apa-apa jika hari ini kamu belum memiliki semua jawaban.
+        Mengenali perasaan sendiri juga merupakan sebuah proses.
+      </p>
+    </div>
+  </section>
+
+  <!-- JURNAL -->
+  <section class="slide">
+    <div class="heading">
+      <span>01 / JURNAL PRIBADI</span>
+      <h1>Ruang Ceritamu 📖</h1>
+      <p>Tempat untuk menuliskan pengalaman dan isi hatimu dengan bebas.</p>
+    </div>
+
+    <div class="panel">
+      <label>Judul cerita</label>
+      <input id="diaryTitle" placeholder="Contoh: Hari yang cukup melelahkan">
+
+      <label>Apa yang terjadi hari ini?</label>
+      <textarea id="diaryText" placeholder="Ceritakan pengalamanmu hari ini..."></textarea>
+
+      <label>Bagaimana perasaanmu?</label>
+      <select id="diaryMood">
+        <option>Bahagia</option>
+        <option>Tenang</option>
+        <option>Biasa saja</option>
+        <option>Sedih</option>
+        <option>Kecewa</option>
+        <option>Cemas</option>
+        <option>Lelah</option>
+      </select>
+
+      <label>Apa yang kamu butuhkan sekarang?</label>
+      <textarea id="diaryNeed" placeholder="Contoh: Aku membutuhkan waktu untuk beristirahat..."></textarea>
+
+      <button class="primary" onclick="saveDiary()">Simpan Ceritaku ✿</button>
+    </div>
+
+    <div class="panel">
+      <h3>Riwayat Jurnal</h3>
+      <div id="diaryList"></div>
+    </div>
+  </section>
+
+  <!-- EMOSI -->
+  <section class="slide">
+    <div class="heading">
+      <span>02 / MENGENALI EMOSI</span>
+      <h1>Bagaimana Perasaanmu? 🌈</h1>
+      <p>Mengenali emosi merupakan langkah awal untuk memahami diri sendiri.</p>
+    </div>
+
+    <div class="panel">
+      <h3>Pilih perasaan yang paling menggambarkan keadaanmu.</h3>
+
+      <div class="mood-grid">
+        <button class="mood" onclick="selectMood('Bahagia',this)">🥰<small>Bahagia</small></button>
+        <button class="mood" onclick="selectMood('Tenang',this)">😌<small>Tenang</small></button>
+        <button class="mood" onclick="selectMood('Biasa saja',this)">🙂<small>Biasa saja</small></button>
+        <button class="mood" onclick="selectMood('Sedih',this)">🥺<small>Sedih</small></button>
+        <button class="mood" onclick="selectMood('Kecewa',this)">😔<small>Kecewa</small></button>
+        <button class="mood" onclick="selectMood('Cemas',this)">😟<small>Cemas</small></button>
+        <button class="mood" onclick="selectMood('Marah',this)">😣<small>Marah</small></button>
+        <button class="mood" onclick="selectMood('Lelah',this)">😴<small>Lelah</small></button>
+      </div>
+
+      <label>Apa yang mungkin memengaruhi perasaanmu?</label>
+      <textarea id="moodReason" placeholder="Misalnya, kejadian hari ini, sekolah, keluarga, atau hal lainnya..."></textarea>
+
+      <button class="primary" onclick="saveMood()">Simpan Catatan Emosi</button>
+    </div>
+
+    <div class="panel">
+      <h3>Perjalanan Emosiku</h3>
+      <div id="moodList"></div>
+    </div>
+  </section>
+
+  <!-- REFLEKSI -->
+  <section class="slide">
+    <div class="heading">
+      <span>03 / REFLEKSI DIRI</span>
+      <h1>Mengenal Diriku Lebih Dalam 🧠</h1>
+      <p>Jawab pertanyaan berikut untuk membantu memahami pengalaman dan kebutuhanmu.</p>
+    </div>
+
+    <div class="panel reflection-panel">
+      <span class="tag" id="questionNumber">PERTANYAAN 01</span>
+      <h2 id="question">Apa hal yang akhir-akhir ini paling banyak memenuhi pikiranmu?</h2>
+      <textarea id="reflectionAnswer" placeholder="Tuliskan apa yang kamu pikirkan..."></textarea>
+      <div class="reflection-buttons">
+        <button class="secondary" onclick="nextQuestion()">Pertanyaan Berikutnya →</button>
+        <button class="primary" onclick="saveReflection()">Simpan Refleksi</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>Catatan Refleksiku</h3>
+      <div id="reflectionList"></div>
+    </div>
+  </section>
+
+  <!-- RUANG PIKIRAN -->
+  <section class="slide">
+    <div class="heading">
+      <span>04 / RUANG PIKIRAN</span>
+      <h1>Tuangkan Isi Pikiranmu ☁️</h1>
+      <p>Tempat untuk mengeluarkan hal-hal yang sedang membebani pikiran.</p>
+    </div>
+
+    <div class="panel">
+      <h3>Apa yang sedang kamu pikirkan?</h3>
+      <textarea id="mindText" placeholder="Aku ingin mengeluarkan sesuatu yang selama ini kupikirkan..."></textarea>
+
+      <label>Hal apa yang bisa kamu kendalikan saat ini?</label>
+      <textarea id="mindControl" placeholder="Tuliskan satu hal kecil yang bisa kamu lakukan..."></textarea>
+
+      <button class="primary" onclick="saveMind()">Simpan Catatan</button>
+    </div>
+
+    <div class="panel">
+      <h3>Catatan Pikiranku</h3>
+      <div id="mindList"></div>
+    </div>
+
+    <div class="panel soft-green">
+      <h3>Ingat 🌿</h3>
+      <p>Kamu boleh mengambil waktu untuk beristirahat dan mencari dukungan dari orang yang kamu percaya.</p>
+    </div>
+  </section>
+
+  <!-- PERKEMBANGAN -->
+  <section class="slide">
+    <div class="heading">
+      <span>05 / PERKEMBANGAN DIRI</span>
+      <h1>Perjalananku 🌱</h1>
+      <p>Lihat kembali catatan dan proses mengenali dirimu.</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><span>📖</span><small>Jurnal</small><h2 id="growthDiary">0</h2></div>
+      <div class="stat"><span>🌈</span><small>Emosi</small><h2 id="growthMood">0</h2></div>
+      <div class="stat"><span>🧠</span><small>Refleksi</small><h2 id="growthReflection">0</h2></div>
+      <div class="stat"><span>☁️</span><small>Catatan pikiran</small><h2 id="growthMind">0</h2></div>
+    </div>
+
+    <div class="panel">
+      <h3>Perjalanan mengenal diri</h3>
+      <p id="growthMessage">Mulailah dengan menulis jurnal pertamamu.</p>
+    </div>
+
+    <div class="panel">
+      <h3>Privasi catatan</h3>
+      <p>Catatanmu disimpan pada browser perangkat ini. Jangan gunakan aplikasi ini untuk menyimpan informasi yang sangat rahasia.</p>
+      <button class="secondary" onclick="exportData()">Unduh Catatanku</button>
+    </div>
+  </section>
+
+  <div class="slide-nav">
+    <button class="secondary" onclick="move(-1)">← Sebelumnya</button>
+    <span id="slideNumber">01 / 06</span>
+    <button class="primary" onclick="move(1)">Selanjutnya →</button>
   </div>
-  <div class="welcome-art">🌿<br>🍓</div>
- </div>
-
- <div class="stats">
-  <div class="stat"><span>📖</span><small>Total Diary</small><h2 id="dashDiary">0</h2></div>
-  <div class="stat"><span>🌈</span><small>Mood Recorded</small><h2 id="dashMood">0</h2></div>
-  <div class="stat"><span>🧠</span><small>Reflections</small><h2 id="dashReflection">0</h2></div>
- </div>
-
- <div class="content-grid">
-  <div class="panel">
-   <h3>Daily Check-In</h3>
-   <p>Bagaimana keadaanmu hari ini?</p>
-   <div class="moods">
-    <button onclick="quickMood('Bahagia','🥰')">🥰</button>
-    <button onclick="quickMood('Tenang','😌')">😌</button>
-    <button onclick="quickMood('Biasa saja','🙂')">🙂</button>
-    <button onclick="quickMood('Sedih','🥺')">🥺</button>
-    <button onclick="quickMood('Lelah','😴')">😴</button>
-    <button onclick="quickMood('Cemas','😟')">😟</button>
-   </div>
-   <p id="quickResult" class="muted">Pilih suasana hatimu.</p>
-  </div>
-  <div class="panel quote">
-   <span>✿ A LITTLE REMINDER</span>
-   <h3>You don't have to be okay all the time.</h3>
-   <p>Every feeling deserves to be understood.</p>
-  </div>
- </div>
-
- <div class="panel">
-  <h3>Recent Journal</h3>
-  <div id="recentDiary">Belum ada cerita hari ini.</div>
- </div>
-</section>
-
-<!-- DIARY -->
-<section class="slide">
- <div class="heading">
-  <span>01 / PERSONAL JOURNAL</span>
-  <h1>My Personal Diary 📖</h1>
-  <p>Tempat untuk menuliskan pengalaman dan perasaanmu tanpa menghakimi diri sendiri.</p>
- </div>
- <div class="panel">
-  <label>Diary Title</label>
-  <input id="diaryTitle" placeholder="Apa judul ceritamu hari ini?">
-  <label>Today's Story</label>
-  <textarea id="diaryText" placeholder="Ceritakan pengalamanmu hari ini..."></textarea>
-  <label>Today's Feeling</label>
-  <select id="diaryFeeling">
-   <option>Bahagia</option>
-   <option>Tenang</option>
-   <option>Biasa saja</option>
-   <option>Sedih</option>
-   <option>Lelah</option>
-   <option>Cemas</option>
-  </select>
-  <button class="primary" onclick="saveDiary()">Save My Diary ✿</button>
- </div>
- <div class="panel">
-  <h3>My Journal History</h3>
-  <div id="diaryList"></div>
- </div>
-</section>
-
-<!-- MOOD -->
-<section class="slide">
- <div class="heading">
-  <span>02 / EMOTIONAL TRACKING</span>
-  <h1>Understand Your Mood 🌈</h1>
-  <p>Kenali dan catat perubahan suasana hatimu.</p>
- </div>
- <div class="panel">
-  <h3>How do you feel?</h3>
-  <div class="mood-options">
-   <button onclick="chooseMood('Bahagia','🥰',this)">🥰<small>Bahagia</small></button>
-   <button onclick="chooseMood('Tenang','😌',this)">😌<small>Tenang</small></button>
-   <button onclick="chooseMood('Biasa saja','🙂',this)">🙂<small>Biasa</small></button>
-   <button onclick="chooseMood('Sedih','🥺',this)">🥺<small>Sedih</small></button>
-   <button onclick="chooseMood('Lelah','😴',this)">😴<small>Lelah</small></button>
-   <button onclick="chooseMood('Cemas','😟',this)">😟<small>Cemas</small></button>
-  </div>
-  <label>What's happening today?</label>
-  <textarea id="moodNote" placeholder="Apa yang memengaruhi perasaanmu?"></textarea>
-  <button class="primary" onclick="saveMood()">Save Mood</button>
- </div>
- <div class="panel">
-  <h3>Mood History</h3>
-  <div id="moodList"></div>
- </div>
-</section>
-
-<!-- REFLECTION -->
-<section class="slide">
- <div class="heading">
-  <span>03 / SELF AWARENESS</span>
-  <h1>Self Reflection 🧠</h1>
-  <p>Luangkan waktu untuk memahami pikiran dan kebutuhan dirimu.</p>
- </div>
- <div class="panel">
-  <div class="question-number" id="qNumber">QUESTION 01</div>
-  <h2 id="question">Apa yang paling kamu rasakan hari ini?</h2>
-  <textarea id="reflectionAnswer" placeholder="Tuliskan jawabanmu dengan jujur..."></textarea>
-  <button class="secondary" onclick="nextQuestion()">Next Question →</button>
-  <button class="primary" onclick="saveReflection()">Save Reflection</button>
- </div>
- <div class="panel">
-  <h3>My Reflection History</h3>
-  <div id="reflectionList"></div>
- </div>
-</section>
-
-<!-- MIND JOURNAL -->
-<section class="slide">
- <div class="heading">
-  <span>04 / MIND DUMPING</span>
-  <h1>Mind Journal ☁️</h1>
-  <p>Ruang untuk mengeluarkan pikiran yang sedang memenuhi kepalamu.</p>
- </div>
- <div class="panel">
-  <h3>Let Your Thoughts Out</h3>
-  <p class="muted">Tidak perlu menyusun kata dengan sempurna. Tulis apa yang ingin kamu keluarkan.</p>
-  <textarea id="mindText" placeholder="Saat ini aku sedang memikirkan..."></textarea>
-  <button class="primary" onclick="saveMind()">Save My Thoughts</button>
- </div>
- <div class="panel">
-  <h3>My Thoughts</h3>
-  <div id="mindList"></div>
- </div>
- <div class="panel quote">
-  <h3>Take a deep breath.</h3>
-  <p>Fokus pada hal yang bisa kamu lakukan sekarang. Hal lainnya boleh menunggu.</p>
- </div>
-</section>
-
-<!-- SELF CARE -->
-<section class="slide">
- <div class="heading">
-  <span>05 / PERSONAL WELLNESS</span>
-  <h1>Self Care Routine 🌿</h1>
-  <p>Perhatian kecil kepada diri sendiri juga penting.</p>
- </div>
- <div class="panel">
-  <h3>My Daily Wellness Checklist</h3>
-  <div id="careList">
-   <label><input type="checkbox"> Minum air putih yang cukup</label>
-   <label><input type="checkbox"> Istirahat dengan cukup</label>
-   <label><input type="checkbox"> Makan secara teratur</label>
-   <label><input type="checkbox"> Meluangkan waktu untuk hobi</label>
-   <label><input type="checkbox"> Mengurangi waktu layar sejenak</label>
-   <label><input type="checkbox"> Menghubungi orang terpercaya</label>
-   <label><input type="checkbox"> Mengapresiasi diri sendiri</label>
-  </div>
- </div>
- <div class="panel">
-  <h3>Positive Affirmations 🌷</h3>
-  <p class="affirmation" id="affirmation">Aku berhak mendapatkan waktu untuk beristirahat.</p>
-  <button class="secondary" onclick="newAffirmation()">Another Reminder ↻</button>
- </div>
-</section>
-
-<!-- PROGRESS -->
-<section class="slide">
- <div class="heading">
-  <span>06 / PERSONAL DEVELOPMENT</span>
-  <h1>My Personal Growth 🌱</h1>
-  <p>Lihat perjalananmu melalui catatan yang sudah kamu buat.</p>
- </div>
- <div class="stats">
-  <div class="stat"><span>📖</span><small>Diary</small><h2 id="progressDiary">0</h2></div>
-  <div class="stat"><span>🌈</span><small>Mood</small><h2 id="progressMood">0</h2></div>
-  <div class="stat"><span>🧠</span><small>Reflection</small><h2 id="progressReflection">0</h2></div>
-  <div class="stat"><span>☁️</span><small>Mind Journal</small><h2 id="progressMind">0</h2></div>
- </div>
- <div class="panel">
-  <h3>My Journey</h3>
-  <p>Setiap catatan adalah kesempatan untuk mengenali diri sendiri.</p>
-  <div id="growthMessage"></div>
- </div>
- <div class="panel">
-  <h3>Privacy & Data</h3>
-  <p>Catatan disimpan pada browser perangkat ini.</p>
-  <button class="secondary" onclick="exportData()">Download My Data</button>
- </div>
-</section>
-
-<div class="slide-nav">
- <button class="secondary" onclick="move(-1)">← Previous</button>
- <span id="slideNumber">01 / 07</span>
- <button class="primary" onclick="move(1)">Next →</button>
-</div>
-
 </main>
+</div>
 
 <script src="script.js"></script>
 </body>
